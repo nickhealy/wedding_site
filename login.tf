@@ -22,7 +22,7 @@ resource "aws_s3_bucket_object" "guest_list" {
   bucket       = aws_s3_bucket.wedding_site_resources.id
   key          = "guest_list.json"
   source       = "guest_list.json"
-  etag         = filemd5("guest_list.json")
+  etag         = filemd5("guest_list.json") // we want re deploy when this updates
   content_type = "application/json"
 }
 
@@ -39,11 +39,12 @@ data "aws_iam_policy_document" "login_assume_role" {
   }
 }
 
-data "aws_iam_policy_document" "read_s3_policy" {
+data "aws_iam_policy_document" "login_s3_policy" {
   statement {
     actions = [
       "s3:ListBucket",
       "s3:GetObject",
+      "s3:PutObject",
     ]
 
     resources = [
@@ -58,14 +59,23 @@ resource "aws_iam_role" "login_role" {
   assume_role_policy = data.aws_iam_policy_document.login_assume_role.json
   inline_policy {
     name = "read-guest-list-policy"
-    policy = data.aws_iam_policy_document.read_s3_policy.json
+    policy = data.aws_iam_policy_document.login_s3_policy.json
   }
 }
 
 data "archive_file" "login_source" {
   type        = "zip"
-  source_file = "login.js"
   output_path = "login.zip"
+
+  source {
+    content = file("./login.js")
+    filename = "login.js"
+  }
+
+  source {
+    content = file("./sessionCache.js")
+    filename = "sessionCache.js"
+  }
 }
 
 resource "aws_lambda_function" "login_lambda" {
