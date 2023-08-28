@@ -66,5 +66,5 @@ resource "aws_s3_bucket_object" "error" {
   source = "./error.html"
   etag   = filemd5("error.html")
   content_type = "text/html"
-
 }
+
