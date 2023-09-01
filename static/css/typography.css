@@ -1,0 +1,13 @@
+@font-face {
+	font-family: "babybowser";
+	src: url("../assets/fonts/babybowser.eot") format("embedded-opentype");
+	src: 
+		url("../assets/fonts/babybowser.ttf") format("truetype");
+}
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@500&display=swap");
+
+h1 {
+	font-family: 'babybowser';
+	font-size: 2rem;
+	margin-bottom: 15px;
+}

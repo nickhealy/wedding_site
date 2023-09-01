@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "wedding_site" {
-  bucket = var.website_bucket_name
+  bucket = var.domain_name
 
   tags = {
     Name        = "Wedding site"
@@ -18,6 +18,7 @@ resource "aws_s3_bucket_website_configuration" "wedding_site_config" {
     key = "error.html"
   }
 }
+
 resource "aws_s3_bucket_public_access_block" "disable_block_acls" {
   bucket = aws_s3_bucket.wedding_site.id
 
@@ -53,18 +54,18 @@ data "aws_iam_policy_document" "allow_public_read_policy_document" {
 
 # this is maybe not necessary if we have a deploy script, but here we go
 resource "aws_s3_bucket_object" "index" {
-  bucket = aws_s3_bucket.wedding_site.id
-  key    = "index.html"
-  source = "./index.html"
-  etag   = filemd5("index.html")
+  bucket       = aws_s3_bucket.wedding_site.id
+  key          = "index.html"
+  source       = "./index.html"
+  etag         = filemd5("index.html")
   content_type = "text/html"
 }
 
 resource "aws_s3_bucket_object" "error" {
-  bucket = aws_s3_bucket.wedding_site.id
-  key    = "error.html"
-  source = "./error.html"
-  etag   = filemd5("error.html")
+  bucket       = aws_s3_bucket.wedding_site.id
+  key          = "error.html"
+  source       = "./error.html"
+  etag         = filemd5("error.html")
   content_type = "text/html"
 }
 
