@@ -1,0 +1,99 @@
+/* reset.css */
+/* Reset default styles to ensure consistent starting point */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul,
+li,
+form,
+label,
+input,
+button,
+textarea,
+select {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+/* Ensure images don't have extra spacing */
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Reset list styles */
+ol,
+ul {
+	list-style: none;
+}
+
+/* Remove hyperlink styling */
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* Make sure inputs and textareas render the same way across different browsers */
+input,
+textarea {
+	appearance: none;
+	background-color: transparent;
+	border-radius: 0;
+}
+
+/* Reset button styles */
+button {
+	appearance: none;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+}
+
+/* Reset select element styles */
+select {
+	appearance: none;
+	background-color: transparent;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+}
+
+/* Reset box-sizing for consistent sizing behavior */
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+/* Set a sensible default for HTML5 elements */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+/* Reset the focus outline for accessibility */
+:focus {
+	outline: none;
+}
+

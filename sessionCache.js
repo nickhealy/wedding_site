@@ -12,7 +12,7 @@ const s3 = new S3Client({ region });
 
 const get = async (defaultValue = {}) => {
 	try {
-		console.log("getting session data from s3")
+		console.log("getting session data from s3");
 		const getSessionsCommand = new GetObjectCommand({
 			Bucket: resourcesBucket,
 			Key: SESSIONS_KEY,
