@@ -167,7 +167,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
 
   // All values are defaults from the AWS console.
   default_cache_behavior {
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "redirect-to-https"
     compress               = true
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
