@@ -4,10 +4,14 @@
 	src: 
 		url("../assets/fonts/babybowser.ttf") format("truetype");
 }
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto:wght@500&display=swap");
+@import url('fonts.googleapis.com/css2?family=Jura&display=swap');
 
 h1 {
 	font-family: 'babybowser';
-	font-size: 2rem;
-	margin-bottom: 15px;
+	font-size: 4rem;
+}
+
+h2 {
+	font-family: 'babybowser';
+	font-size: 3.5rem;
 }

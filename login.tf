@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "wedding_site_resources" {
   bucket = var.resources_bucket_name
   tags = {
-    Name        = "Site resources"
+    Name        = "site-resources"
     Environment = "Prod"
   }
 }
