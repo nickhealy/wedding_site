@@ -1,5 +1,6 @@
 /* reset.css */
 /* Reset default styles to ensure consistent starting point */
+html,
 body,
 h1,
 h2,
@@ -16,6 +17,7 @@ label,
 input,
 button,
 textarea,
+header,
 select {
 	margin: 0;
 	padding: 0;

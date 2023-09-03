@@ -1,0 +1,81 @@
+section {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	margin: 0 !important;
+}
+
+section:nth-child(3),
+section:nth-child(5) {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+section:nth-child(3) {
+	background-color: var(--primary-black);
+	color: var(--primary-white);
+}
+
+section:nth-child(4) {
+	filter: saturate(100%) hue-rotate(0deg) brightness(100%) blur(0px);
+	background-image: url("https://myblissandbone.com/bradford/_images/67fc3f66c8c81b5e0a6ed3eec7ecc8e7.jpeg");
+	background-position: center center;
+}
+section:nth-child(5) {
+	background-color: var(--primary-grey);
+	color: var(--primary-black);
+}
+
+@media (max-width: 677px) {
+	section {
+		flex-direction: column;
+	}
+}
+
+#hero h1 {
+	z-index: 10000;
+}
+
+.event {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	line-height: 2em;
+	text-align: center;
+}
+
+.event h2 {
+	margin-bottom: 45px;
+}
+
+.event h4 {
+	font-weight: bold;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: var(--primary-white);
+	color: var(--primary-black);
+	/* border-bottom: 1px solid var(--primary-black); */
+	display: flex;
+	padding: 15px;
+	align-items: center;
+	justify-content: space-between;
+	z-index: 100;
+}
+
+header h1 {
+	font-size: 2.5rem;
+	transition: all 0.3s ease-in-out;
+}
+
+.hidden {
+	opacity: 0;
+	pointer-events: none;
+}
