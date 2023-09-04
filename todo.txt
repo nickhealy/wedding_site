@@ -1,0 +1,4 @@
+- expose lambda login to internet
+- edge lambda -- route users to site a b or c depending on their access level
+- investigate storing as a csv
+- error page

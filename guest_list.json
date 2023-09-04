@@ -1,4 +1,23 @@
 {
-	"nickrhealy@gmail.com": ["ceremony", "rehearsal", "reception", "party"],
-	"adegaudemar@gmail.com": ["ceremony", "reception"]
+	"1": {
+		"name": "Nick Healy",
+		"email": "nickrhealy@gmail.com",
+		"events": "rtps",
+		"plus_ones": ["10", "11"],
+		"id": 1
+	},
+	"10": {
+		"name": "Jack Smith",
+		"email": null,
+		"events": "rtps",
+		"plus_ones": [],
+		"id": 10
+	},
+	"11": {
+		"name": "Shelley Duvall",
+		"email": null,
+		"events": "rtps",
+		"plus_ones": [],
+		"id": 11
+	}
 }

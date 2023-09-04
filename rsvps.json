@@ -1,0 +1,11 @@
+{
+	"10": {
+		"dietary_restrictions": "",
+		"events": [
+			{
+				"event": "event_name",
+				"rsvp": true
+			}
+		]
+	}
+}

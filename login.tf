@@ -58,22 +58,28 @@ resource "aws_iam_role" "login_role" {
   name               = "login_role"
   assume_role_policy = data.aws_iam_policy_document.login_assume_role.json
   inline_policy {
-    name = "read-guest-list-policy"
+    name   = "read-guest-list-policy"
     policy = data.aws_iam_policy_document.login_s3_policy.json
   }
 }
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_role" {
+  role       = aws_iam_role.login_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 
 data "archive_file" "login_source" {
   type        = "zip"
   output_path = "login.zip"
 
   source {
-    content = file("./login.js")
+    content  = file("./login.js")
     filename = "login.js"
   }
 
   source {
-    content = file("./sessionCache.js")
+    content  = file("./sessionCache.js")
     filename = "sessionCache.js"
   }
 }
@@ -90,8 +96,15 @@ resource "aws_lambda_function" "login_lambda" {
 
   environment {
     variables = {
-      SITE_PASSWORD = var.site_password
+      SITE_PASSWORD    = var.site_password
       RESOURCES_BUCKET = var.resources_bucket_name
     }
   }
 }
+
+resource "aws_cloudwatch_log_group" "login_cw_group" {
+  name = "/aws/lambda/${aws_lambda_function.login_lambda.function_name}"
+
+  retention_in_days = 30
+}
+

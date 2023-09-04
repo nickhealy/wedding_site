@@ -1,8 +1,5 @@
-const {
-	S3Client,
-	GetObjectCommand,
-} = require("@aws-sdk/client-s3");
-const SessionCache = require('./sessionCache')
+const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const SessionCache = require("./sessionCache");
 
 const region = process.env.AWS_REGION;
 const PASSWORD = process.env.SITE_PASSWORD;
@@ -25,13 +22,25 @@ function generateRandomHash(length = 16) {
 }
 
 exports.handler = async (event) => {
-	const { email, password } = event.body;
+	console.log("event", event);
+	let email = "",
+		password = "";
+
+	try {
+		({ email, password } = JSON.parse(event.body));
+	} catch (e) {
+		console.error(e);
+		return {
+			statusCode: 500,
+			body: "Internal Server error, this is bad :(",
+		};
+	}
 
 	// Check if provided password matches the stored password
 	if (password !== PASSWORD) {
 		return {
 			statusCode: 403,
-			body: JSON.stringify({ message: "Invalid credentials" }),
+			body: JSON.stringify({ message: "Invalid credentials, biatch" }),
 		};
 	}
 
@@ -47,27 +56,32 @@ exports.handler = async (event) => {
 		const guestsRaw = await data.Body.transformToString();
 		const guestPermissions = JSON.parse(guestsRaw);
 
+		const guestData = Object.values(guestPermissions).find(
+			({ email: dbEmail }) => dbEmail === email
+		);
 		// Check if the provided email is in the mappings
-		if (!guestPermissions[email]) {
+		if (!guestData) {
 			return {
 				statusCode: 403,
 				body: JSON.stringify({ message: "Unauthorized email" }),
 			};
 		}
 
-		// Return success response with permissions in a cookie
-		const permissions = guestPermissions[email];
-		
-		const newSessionToken = generateRandomHash()
-		await SessionCache.set(email, newSessionToken)
+		console.log(`found data for ${email}`);
+
+		const { events, id } = guestData;
+		const newSessionToken = generateRandomHash();
+		await SessionCache.set(email, newSessionToken);
 
 		const response = {
 			statusCode: 200,
-			headers: {
-				"Set-Cookie": `permissions=${encodeURIComponent(
-					JSON.stringify(permissions)
-				)}; HttpOnly; Path=/; session_token=${newSessionToken}; HttpOnly; Path=/`,
-			},
+			cookies: [
+				`events=${encodeURIComponent(
+					JSON.stringify(events)
+				)}; HttpOnly; Path=/;`,
+				`id=${id}; HttpOnly; Path=/;`,
+				`token=${newSessionToken}; HttpOnly; Path=/`,
+			],
 			body: JSON.stringify({ message: "Login successful" }),
 		};
 		return response;
