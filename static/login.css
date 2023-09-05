@@ -8,7 +8,7 @@
 	margin: auto;
 }
 
-.login-form {
+#login-form {
 	width: 100%;
 	background-color: var(--primary-white);
 	color: var(--primary-black);
@@ -16,10 +16,9 @@
 	justify-content: center;
 	align-items: center;
 	max-width: 300px;
-
 }
 
-.login-form > div {
+#login-form > div {
 	width: 100%;
 	display: flex;
 	row-gap: 10px;
@@ -35,12 +34,12 @@ input[type="password"] {
 }
 
 button {
-/* i don't like using margin in this way but this is the best i can do rn*/
-	margin-top: 20px; 
+	/* i don't like using margin in this way but this is the best i can do rn*/
+	margin-top: 20px;
 	width: 100%;
-    background-color:  var(--primary-black);
-    color: var(--primary-white);
-    border: 1px solid  var(--primary-black);
-    padding: 10px 15px;
-    cursor: pointer;
+	background-color: var(--primary-black);
+	color: var(--primary-white);
+	border: 1px solid var(--primary-black);
+	padding: 10px 15px;
+	cursor: pointer;
 }

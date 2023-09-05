@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "www" {
   bucket = var.www_domain_name
 
   website {
-    index_document = "index.html"
+    index_document = "login.html"
     error_document = "error.html"
   }
 
@@ -55,13 +55,25 @@ data "aws_iam_policy_document" "bucket_policy" {
   }
 }
 
-# this is maybe not necessary if we have a deploy script, but here we go
-resource "aws_s3_bucket_object" "index" {
-  bucket       = aws_s3_bucket.www.id
-  key          = "index.html"
-  source       = "./index.html"
-  etag         = filemd5("index.html")
-  content_type = "text/html"
+# Define a map to specify the content type for each file extension
+locals {
+  content_types = {
+    ".html" = "text/html",
+    ".css"  = "text/css",
+    ".js"   = "application/javascript",
+    ".ttf" = "font/ttf"
+  }
+}
+
+resource "aws_s3_bucket_object" "static_assets" {
+  bucket   = aws_s3_bucket.www.id
+  for_each = fileset("${path.module}/static", "**")
+
+  key    = each.key
+  source = "${path.module}/static/${each.key}"
+  etag   = filemd5("${path.module}/static/${each.key}")
+  #  gets last element of split string as file type, then gets the content type from the map
+  content_type = try(local.content_types[".${element(split(".", each.key), length(split(".", each.key)) - 1)}"], "application/octet-stream")
 }
 
 resource "aws_s3_bucket_object" "error" {
@@ -155,7 +167,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
   }
 
   enabled             = true
-  default_root_object = "index.html"
+  default_root_object = "login.html"
 
   aliases = [var.root_domain_name, var.www_domain_name]
 

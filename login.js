@@ -21,6 +21,11 @@ function generateRandomHash(length = 16) {
 	return hash;
 }
 
+const headers = {
+	"Access-Control-Allow-Origin": "*", // Required for CORS support to work
+	"Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+};
+
 exports.handler = async (event) => {
 	console.log("event", event);
 	let email = "",
@@ -31,6 +36,7 @@ exports.handler = async (event) => {
 	} catch (e) {
 		console.error(e);
 		return {
+			headers,
 			statusCode: 500,
 			body: "Internal Server error, this is bad :(",
 		};
@@ -39,6 +45,7 @@ exports.handler = async (event) => {
 	// Check if provided password matches the stored password
 	if (password !== PASSWORD) {
 		return {
+			...headers,
 			statusCode: 403,
 			body: JSON.stringify({ message: "Invalid credentials, biatch" }),
 		};
@@ -62,6 +69,7 @@ exports.handler = async (event) => {
 		// Check if the provided email is in the mappings
 		if (!guestData) {
 			return {
+				headers,
 				statusCode: 403,
 				body: JSON.stringify({ message: "Unauthorized email" }),
 			};
@@ -74,13 +82,14 @@ exports.handler = async (event) => {
 		await SessionCache.set(email, newSessionToken);
 
 		const response = {
+			headers,
 			statusCode: 200,
 			cookies: [
 				`events=${encodeURIComponent(
 					JSON.stringify(events)
-				)}; HttpOnly; Path=/;`,
-				`id=${id}; HttpOnly; Path=/;`,
-				`token=${newSessionToken}; HttpOnly; Path=/`,
+				)}; HttpOnly; Path=/; SameSite=None; Secure`,
+				`id=${id}; HttpOnly; Path=/; SameSite=None; Secure`,
+				`token=${newSessionToken}; HttpOnly; Path=/; SameSite=None; Secure`,
 			],
 			body: JSON.stringify({ message: "Login successful" }),
 		};
@@ -88,6 +97,7 @@ exports.handler = async (event) => {
 	} catch (error) {
 		console.error("Error:", error);
 		return {
+			headers,
 			statusCode: 500,
 			body: JSON.stringify({ message: "Internal server error" }),
 		};

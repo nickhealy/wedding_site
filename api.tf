@@ -1,6 +1,13 @@
 resource "aws_apigatewayv2_api" "wedding_site" {
   name          = "wedding-site-api"
   protocol_type = "HTTP"
+
+  # cors_configuration  {
+  #   allow_credentials = true
+  #   allow_headers = ["content-type"]
+  #   allow_methods = ["GET", "PUT", "POST", "PATCH"]
+  #   allow_origins = ["http://localhost:8000"]
+  # }
 }
 
 resource "aws_apigatewayv2_stage" "default" {
@@ -25,10 +32,10 @@ resource "aws_apigatewayv2_deployment" "wedding_site" {
 }
 
 resource "aws_apigatewayv2_integration" "login" {
-  api_id             = aws_apigatewayv2_api.wedding_site.id
-  integration_uri    = aws_lambda_function.login_lambda.invoke_arn
-  integration_type   = "AWS_PROXY"
-  integration_method = "POST"
+  api_id                 = aws_apigatewayv2_api.wedding_site.id
+  integration_uri        = aws_lambda_function.login_lambda.invoke_arn
+  integration_type       = "AWS_PROXY"
+  integration_method     = "POST"
   payload_format_version = "2.0"
 }
 

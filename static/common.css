@@ -24,3 +24,11 @@ body {
 .main h1:nth-child(2) {
 	font-size: 2rem;
 }
+
+.empty {
+	height: 1rem
+}
+.hidden {
+	display: hidden;
+	pointer-events: none;
+}

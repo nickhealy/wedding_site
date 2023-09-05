@@ -1,4 +1,10 @@
-- expose lambda login to internet
+### wish list
+- make api auto deploy via terraform
+- put api behind route53
+- error page
+- invalidating cloudfront cache
+- figure out why @import wasn't working....
+### necessary
+- connect login site to api
 - edge lambda -- route users to site a b or c depending on their access level
 - investigate storing as a csv
-- error page
