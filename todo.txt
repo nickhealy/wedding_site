@@ -5,6 +5,7 @@
 - invalidating cloudfront cache
 - figure out why @import wasn't working....
 ### necessary
+- CORS CORS CORS CORS CORS
 - connect login site to api
 - edge lambda -- route users to site a b or c depending on their access level
 - investigate storing as a csv

@@ -2,12 +2,12 @@ resource "aws_apigatewayv2_api" "wedding_site" {
   name          = "wedding-site-api"
   protocol_type = "HTTP"
 
-  # cors_configuration  {
-  #   allow_credentials = true
-  #   allow_headers = ["content-type"]
-  #   allow_methods = ["GET", "PUT", "POST", "PATCH"]
-  #   allow_origins = ["http://localhost:8000"]
-  # }
+  cors_configuration {
+    allow_credentials = true
+    allow_headers     = ["content-type"]
+    allow_methods     = ["GET", "PUT", "POST", "PATCH"]
+    allow_origins     = ["http://localhost:8000", "https://${var.www_domain_name}", "https://${var.root_domain_name}"]
+  }
 }
 
 resource "aws_apigatewayv2_stage" "default" {
@@ -21,6 +21,8 @@ resource "aws_apigatewayv2_deployment" "wedding_site" {
 
   triggers = {
     redeployment = sha1(join(",", tolist([
+      jsonencode(aws_apigatewayv2_stage.default),
+      jsonencode(aws_apigatewayv2_api.wedding_site),
       jsonencode(aws_apigatewayv2_integration.login),
       jsonencode(aws_apigatewayv2_route.login),
     ])))

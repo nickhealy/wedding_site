@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const response = await fetch(`/login`, {
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         credentials: 'include',
         headers: {
