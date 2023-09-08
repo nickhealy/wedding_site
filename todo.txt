@@ -3,9 +3,10 @@
 - put api behind route53
 - error page
 - invalidating cloudfront cache
-- figure out why @import wasn't working....
+- customize cloudfront cache key to use headers
 ### necessary
-- CORS CORS CORS CORS CORS
-- connect login site to api
+- handle login redirect
 - edge lambda -- route users to site a b or c depending on their access level
+- get spinner working
+- get static site pipeline working
 - investigate storing as a csv

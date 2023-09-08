@@ -91,7 +91,6 @@ exports.handler = async (event) => {
 				`id=${id}; HttpOnly; Path=/; SameSite=None; Secure`,
 				`token=${newSessionToken}; HttpOnly; Path=/; SameSite=None; Secure`,
 			],
-			body: JSON.stringify({ message: "Login successful" }),
 		};
 		return response;
 	} catch (error) {

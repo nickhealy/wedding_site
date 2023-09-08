@@ -37,6 +37,18 @@ resource "aws_s3_bucket_policy" "my_bucket_policy" {
   policy = data.aws_iam_policy_document.bucket_policy.json
 }
 
+resource "aws_s3_bucket_cors_configuration" "example" {
+  bucket = aws_s3_bucket.www.id
+
+  cors_rule {
+    allowed_headers = ["content-type"]
+    allowed_methods = ["GET" ]
+    # allowed_origins = [aws_apigatewayv2_api.wedding_site.api_endpoint]
+    allowed_origins = ["https://nickandannabellegetmarried.com"]
+    max_age_seconds = 3000 # maybe check out what this is
+  }
+}
+
 data "aws_iam_policy_document" "bucket_policy" {
   statement {
     actions = [
@@ -61,7 +73,7 @@ locals {
     ".html" = "text/html",
     ".css"  = "text/css",
     ".js"   = "application/javascript",
-    ".ttf" = "font/ttf"
+    ".ttf"  = "font/ttf"
   }
 }
 
@@ -164,6 +176,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
 
     domain_name = aws_s3_bucket.www.bucket_domain_name
     origin_id   = var.www_domain_name
+
   }
 
   enabled             = true
@@ -175,21 +188,17 @@ resource "aws_cloudfront_distribution" "www_distribution" {
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
-    allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
-    // This needs to match the `origin_id` above.
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = var.www_domain_name
     min_ttl          = 0
     default_ttl      = 86400
     max_ttl          = 31536000
 
-    forwarded_values {
-      query_string = false
-      cookies {
-        forward = "none"
-      }
-    }
+    origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.wedding_site.id
+    cache_policy_id            = data.aws_cloudfront_cache_policy.wedding_site.id
   }
+
 
   restrictions {
     geo_restriction {
@@ -201,6 +210,13 @@ resource "aws_cloudfront_distribution" "www_distribution" {
     acm_certificate_arn = aws_acm_certificate_validation.cert.certificate_arn
     ssl_support_method  = "sni-only"
   }
+}
 
+data "aws_cloudfront_origin_request_policy" "wedding_site" {
+   name = "Managed-CORS-S3Origin" 
+}
+
+data "aws_cloudfront_cache_policy" "wedding_site" {
+  name = "Managed-CachingOptimized"
 }
 

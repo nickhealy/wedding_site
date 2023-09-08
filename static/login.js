@@ -1,4 +1,5 @@
 const API_BASE_URL = "https://k8eqcw1zc9.execute-api.eu-west-2.amazonaws.com";
+const SITE_BASE = "https://nickandannabellegetmarried.com";
 
 const setError = (el, message) => {
   el.textContent = message;
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ email, password }),
       });
       if (response.status === 200) {
+        location.href = `${SITE_BASE}/main.html`
         // Successful login logic here
         console.log("Login successful");
       } else if (response.status === 403) {
