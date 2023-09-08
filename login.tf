@@ -26,20 +26,21 @@ resource "aws_s3_bucket_object" "guest_list" {
   content_type = "application/json"
 }
 
-data "aws_iam_policy_document" "login_assume_role" {
+data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     effect = "Allow"
 
     principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
+      type = "Service"
+      // should probably give edge  its own assume role, but i want to keep it simple here
+      identifiers = ["lambda.amazonaws.com", "edgelambda.amazonaws.com"]
     }
 
     actions = ["sts:AssumeRole"]
   }
 }
 
-data "aws_iam_policy_document" "login_s3_policy" {
+data "aws_iam_policy_document" "resources_read" {
   statement {
     actions = [
       "s3:ListBucket",
@@ -54,17 +55,17 @@ data "aws_iam_policy_document" "login_s3_policy" {
   }
 }
 
-resource "aws_iam_role" "login_role" {
-  name               = "login_role"
-  assume_role_policy = data.aws_iam_policy_document.login_assume_role.json
+resource "aws_iam_role" "resources_read" {
+  name               = "resources_read"
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
   inline_policy {
     name   = "read-guest-list-policy"
-    policy = data.aws_iam_policy_document.login_s3_policy.json
+    policy = data.aws_iam_policy_document.resources_read.json
   }
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch_role" {
-  role       = aws_iam_role.login_role.name
+  role       = aws_iam_role.resources_read.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
@@ -87,7 +88,7 @@ data "archive_file" "login_source" {
 resource "aws_lambda_function" "login_lambda" {
   filename      = "login.zip"
   function_name = "login"
-  role          = aws_iam_role.login_role.arn
+  role          = aws_iam_role.resources_read.arn
   handler       = "login.handler"
 
   source_code_hash = data.archive_file.login_source.output_base64sha256

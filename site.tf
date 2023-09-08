@@ -42,7 +42,7 @@ resource "aws_s3_bucket_cors_configuration" "example" {
 
   cors_rule {
     allowed_headers = ["content-type"]
-    allowed_methods = ["GET" ]
+    allowed_methods = ["GET"]
     # allowed_origins = [aws_apigatewayv2_api.wedding_site.api_endpoint]
     allowed_origins = ["https://nickandannabellegetmarried.com"]
     max_age_seconds = 3000 # maybe check out what this is
@@ -110,7 +110,7 @@ resource "aws_acm_certificate" "cert" {
   lifecycle {
     create_before_destroy = true
   }
-  subject_alternative_names = [var.www_domain_name]
+  subject_alternative_names = [var.www_domain_name, "api.nickandannabellegetmarried.com"]
 }
 
 resource "aws_route53_record" "root" {
@@ -184,19 +184,47 @@ resource "aws_cloudfront_distribution" "www_distribution" {
 
   aliases = [var.root_domain_name, var.www_domain_name]
 
+  ordered_cache_behavior {
+    path_pattern     = "/main.html"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = var.www_domain_name
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "whitelist"
+        whitelisted_names = [
+          "session_id", "user_id"
+        ]
+      }
+    }
+
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = aws_lambda_function.edge_lambda.qualified_arn
+      include_body = false
+    }
+  }
   // All values are defaults from the AWS console.
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = var.www_domain_name
-    min_ttl          = 0
-    default_ttl      = 86400
-    max_ttl          = 31536000
+    target_origin_id       = var.www_domain_name
+    # min_ttl          = 0
+    # default_ttl      = 86400
+    # max_ttl          = 31536000
 
-    origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.wedding_site.id
-    cache_policy_id            = data.aws_cloudfront_cache_policy.wedding_site.id
+    origin_request_policy_id = data.aws_cloudfront_origin_request_policy.wedding_site.id
+    cache_policy_id          = data.aws_cloudfront_cache_policy.wedding_site.id
   }
 
 
@@ -213,7 +241,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
 }
 
 data "aws_cloudfront_origin_request_policy" "wedding_site" {
-   name = "Managed-CORS-S3Origin" 
+  name = "Managed-CORS-S3Origin"
 }
 
 data "aws_cloudfront_cache_policy" "wedding_site" {

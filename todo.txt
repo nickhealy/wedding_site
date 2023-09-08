@@ -10,3 +10,9 @@
 - get spinner working
 - get static site pipeline working
 - investigate storing as a csv
+
+
+what do you name terraform resources?
+why do we need a new certificate in eu-west-2 to make this work? 
+put new cert into terraform, use it to validate the api gateway
+how does it work validating an ACM certificate? and how does CNAME fit into that?

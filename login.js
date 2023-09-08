@@ -42,15 +42,6 @@ exports.handler = async (event) => {
 		};
 	}
 
-	// Check if provided password matches the stored password
-	if (password !== PASSWORD) {
-		return {
-			...headers,
-			statusCode: 403,
-			body: JSON.stringify({ message: "Invalid credentials, biatch" }),
-		};
-	}
-
 	try {
 		// Read email-permission mappings from S3
 		const getObjectCommand = new GetObjectCommand({
@@ -71,25 +62,32 @@ exports.handler = async (event) => {
 			return {
 				headers,
 				statusCode: 403,
-				body: JSON.stringify({ message: "Unauthorized email" }),
+				body: JSON.stringify({ message: "BAD_EMAIL" }),
+			};
+		}
+		// Check if provided password matches the stored password
+		if (password !== PASSWORD) {
+			return {
+				...headers,
+				statusCode: 403,
+				body: JSON.stringify({
+					message: "BAD_PASSWORD",
+				}),
 			};
 		}
 
 		console.log(`found data for ${email}`);
 
-		const { events, id } = guestData;
+		const { id } = guestData;
 		const newSessionToken = generateRandomHash();
-		await SessionCache.set(email, newSessionToken);
+		await SessionCache.set(id, newSessionToken);
 
 		const response = {
 			headers,
 			statusCode: 200,
 			cookies: [
-				`events=${encodeURIComponent(
-					JSON.stringify(events)
-				)}; HttpOnly; Path=/; SameSite=None; Secure`,
-				`id=${id}; HttpOnly; Path=/; SameSite=None; Secure`,
-				`token=${newSessionToken}; HttpOnly; Path=/; SameSite=None; Secure`,
+				`user_id=${id}; HttpOnly; SameSite=None; Domain=nickandannabellegetmarried.com; Secure`,
+				`session_id=${newSessionToken}; HttpOnly;  Domain=nickandannabellegetmarried.com; SameSite=None; Secure`,
 			],
 		};
 		return response;

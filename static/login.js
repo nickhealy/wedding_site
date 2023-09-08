@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://k8eqcw1zc9.execute-api.eu-west-2.amazonaws.com";
+const API_BASE_URL = "https://api.nickandannabellegetmarried.com";
 const SITE_BASE = "https://nickandannabellegetmarried.com";
 
 const setError = (el, message) => {
