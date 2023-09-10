@@ -1,11 +1,8 @@
 ### wish list
 - make api auto deploy via terraform
-- put api behind route53
 - error page
 - invalidating cloudfront cache
-- customize cloudfront cache key to use headers
 ### necessary
-- handle login redirect
 - edge lambda -- route users to site a b or c depending on their access level
 - get spinner working
 - get static site pipeline working
@@ -14,5 +11,5 @@
 
 what do you name terraform resources?
 why do we need a new certificate in eu-west-2 to make this work? 
-put new cert into terraform, use it to validate the api gateway
-how does it work validating an ACM certificate? and how does CNAME fit into that?
+how does the cloudfront cache get invalidated when dynamic content is uploaded?
+am i caching options/preflight request properly

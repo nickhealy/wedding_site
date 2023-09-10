@@ -8,13 +8,21 @@
 	</head>
 
 	<body>
-		<header id="header"><h1 class="hidden">Nick and Annabelle</h1></header>
-		<section class="main" id="hero">
+		<div id="hamburger">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<header id="header">
+			<h1 class="hidden">Nick and Annabelle</h1>
+		</header>
+		<div id="menu" class='closed' ></div>
+		<section class="main menu-target" id="hero" data-section-id="home">
 			<h1>Nick</h1>
 			<h1>and</h1>
 			<h1>Annabelle</h1>
 		</section>
-		<section>
+		<section id="main-events" class="menu-target" data-section-id="wedding">
 			<div class="event">
 				<h2>the wedding</h2>
 				<h4>08 June 2024</h4>
@@ -34,10 +42,30 @@
 				</h5>
 			</div>
 		</section>
-		<section class="main">
+		<section class="main" id="other-events-card">
 			<h1>other events</h1>
 		</section>
-		<section>
+		<section id="other-events"  class="menu-target" data-section-id="other events">
+			<div class="event">
+				<h2>the night before</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+			<div class="event">
+				<h2>the day after</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+		</section>
+		<section id="travel-tips" data-section-id="travel tips" class="menu-target">
 			<div class="event">
 				<h2>the night before</h2>
 				<h4>08 June 2024</h4>

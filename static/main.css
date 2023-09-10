@@ -7,23 +7,23 @@ section {
 	margin: 0 !important;
 }
 
-section:nth-child(3),
-section:nth-child(5) {
+#main-events,
+#other-events {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
 }
-section:nth-child(3) {
+#main-events{
 	background-color: var(--primary-black);
 	color: var(--primary-white);
 }
 
-section:nth-child(4) {
+#other-events-card{
 	filter: saturate(100%) hue-rotate(0deg) brightness(100%) blur(0px);
 	background-image: url("https://myblissandbone.com/bradford/_images/67fc3f66c8c81b5e0a6ed3eec7ecc8e7.jpeg");
 	background-position: center center;
 }
-section:nth-child(5) {
+#other-events{
 	background-color: var(--primary-grey);
 	color: var(--primary-black);
 }
@@ -35,7 +35,7 @@ section:nth-child(5) {
 }
 
 #hero h1 {
-	z-index: 10000;
+	z-index: 100;
 }
 
 .event {
@@ -67,11 +67,73 @@ header {
 	padding: 15px;
 	align-items: center;
 	justify-content: space-between;
-	z-index: 100;
+	z-index: 10;
 }
 
 header h1 {
 	font-size: 2.5rem;
-	transition: all 0.3s ease-in-out;
 }
 
+#hamburger {
+	display: flex;
+	flex-direction: column;
+	cursor: pointer;
+	padding: 10px;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	z-index: 201;
+}
+
+#hamburger div {
+	width: 30px;
+	height: 3px;
+	background-color: var(--primary-black);
+	margin: 4px 0;
+	transition: transform 0.4s, opacity 0.4s, background-color 0.4s;
+}
+#hamburger.close div {
+	background-color: var(--primary-white);
+}
+
+/* Close animation */
+#hamburger.close div:nth-child(1) {
+	transform: rotate(-45deg) translate(-5px, 10px);
+}
+
+#hamburger.close div:nth-child(2) {
+	opacity: 0;
+}
+
+#hamburger.close div:nth-child(3) {
+	transform: rotate(45deg) translate(-5px, -10px);
+}
+
+#menu {
+	top: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	background-color: var(--primary-black);
+	z-index: 200;
+	transition: all 0.2s ease-out;
+	color: var(--primary-grey);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#menu.closed {
+	top: -115%;
+}
+
+#menu > div {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	width: 100%;
+	padding: 0 40px;
+	row-gap: 25px;
+}

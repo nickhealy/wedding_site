@@ -3,12 +3,21 @@ const SITE_BASE = "https://nickandannabellegetmarried.com";
 
 const setError = (el, message) => {
   el.textContent = message;
-  el.classList.remove("hidden")
+  el.classList.remove("hidden");
 };
 
 const clearError = (el) => {
   el.textContent = "";
-  el.classList.add("add")
+  el.classList.add("add");
+};
+
+const showSpinner = (button) => {
+  console.log("showing spinner")
+  button.innerHTML = '<div class="spinner"></div>';
+};
+
+const removeSpinner = (button) => {
+  button.innerHTML = "Login";
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,34 +43,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isValidEmail(email)) {
         setError(errorMessage, "Please provide a valid email address");
-        console.error("INVALID_EMAIL")
+        console.error("INVALID_EMAIL");
         return;
       }
 
+      showSpinner(loginButton);
       const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
-        credentials: 'include',
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
       if (response.status === 200) {
-        location.href = `${SITE_BASE}/main.html`
+        location.href = `${SITE_BASE}/main.html`;
         // Successful login logic here
         console.log("Login successful");
+        return
       } else if (response.status === 403) {
         setError(errorMessage, "Invalid Credentials");
+        removeSpinner(loginButton);
       } else if (response.status === 500) {
         setError(errorMessage, "Something went wrong on our end");
+        removeSpinner(loginButton);
       }
     } catch (error) {
       console.error("An error occurred:", error);
       setError(errorMessage, "Something went wrong");
-    } finally {
-      // Re-enable the submit button and hide the loading spinner
-      loginButton.disabled = false;
-      // loadingSpinner.style.display = "none";
+      removeSpinner(loginButton);
     }
   });
 

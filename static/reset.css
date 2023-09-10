@@ -25,6 +25,7 @@ select {
 	font-size: 100%;
 	font-family: inherit;
 	vertical-align: baseline;
+	position: relative;
 }
 
 /* Ensure images don't have extra spacing */
