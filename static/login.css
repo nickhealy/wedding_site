@@ -32,14 +32,3 @@ input[type="password"] {
 	border-bottom: 1px solid black;
 	width: 100%;
 }
-
-button {
-	/* i don't like using margin in this way but this is the best i can do rn*/
-	margin-top: 20px;
-	width: 100%;
-	background-color: var(--primary-black);
-	color: var(--primary-white);
-	border: 1px solid var(--primary-black);
-	padding: 10px 15px;
-	cursor: pointer;
-}

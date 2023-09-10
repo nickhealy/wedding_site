@@ -32,7 +32,14 @@ body {
 	visibility: hidden;
 	pointer-events: none;
 }
-/**/
+.dark-bg {
+	background-color: var(--primary-black);
+	color: var(--primary-white);
+}
+.light-bg {
+	background-color: var(--primary-white);
+	color: var(--primary-black);
+}
 .overlay {
 	position: absolute;
 	top: 0;
@@ -40,6 +47,16 @@ body {
 	width: 100vw;
 	height: 100vh;
 	opacity: 0.9;
+}
+
+button {
+	margin-top: 20px;
+	width: 100%;
+	background-color: var(--primary-black);
+	color: var(--primary-white);
+	border: 1px solid var(--primary-black);
+	padding: 10px 15px;
+	cursor: pointer;
 }
 .spinner {
 	width: 1rem;
@@ -58,4 +75,12 @@ body {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 15px 0px;
 }
