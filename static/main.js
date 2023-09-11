@@ -62,3 +62,12 @@ hamburger.addEventListener("click", (e) => {
   e.preventDefault();
   toggleMenu()
 });
+
+// rsvp
+const forms = Array.from(document.querySelectorAll('.guest-form'))
+const submit = () => {
+  const formData = forms.reduce((acc, curr) => {
+    const guestId = curr.querySelector('h4').dataset.guestId
+    const rsvp = formData
+  }) 
+}

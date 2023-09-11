@@ -180,7 +180,7 @@ resource "aws_cloudfront_distribution" "www_distribution" {
   }
 
   enabled             = true
-  default_root_object = "login.html"
+  default_root_object = "main.html"
 
   aliases = [var.root_domain_name, var.www_domain_name]
 

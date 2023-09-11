@@ -43,8 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isValidEmail(email)) {
         setError(errorMessage, "Please provide a valid email address");
-        console.error("INVALID_EMAIL");
-        return;
+        throw new Error("INVALID_EMAIL")
       }
 
       showSpinner(loginButton);
@@ -72,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("An error occurred:", error);
       setError(errorMessage, "Something went wrong");
       removeSpinner(loginButton);
+      loginButton.disabled = false
     }
   });
 

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="main.index.css" />
+		<link rel="icon" type="image/x-icon" href="assets/images/nickannabellePNG1.png">
+		<script
+			src="https://kit.fontawesome.com/12f6611ba5.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Nick and Annabelle wedding site</title>
+	</head>
+
+	<body>
+		<div id="hamburger">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<header id="header">
+			<h1 class="hidden">Nick and Annabelle</h1>
+		</header>
+		<div id="menu" class="closed"></div>
+		<section class="main menu-target" id="hero" data-section-id="home">
+			<h1>Nick</h1>
+			<h1>and</h1>
+			<h1>Annabelle</h1>
+		</section>
+		<section
+			id="main-events"
+			class="menu-target dark-bg"
+			data-section-id="wedding"
+		>
+			<div class="event">
+				<h2>the wedding</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+			<div class="event">
+				<h2>the after party</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+		</section>
+		<section class="main" id="other-events-card">
+			<h1>other events</h1>
+		</section>
+		<section
+			id="other-events"
+			class="menu-target"
+			data-section-id="other events"
+		>
+			<div class="event">
+				<h2>the night before</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+			<div class="event">
+				<h2>the day after</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+		</section>
+		<section
+			id="travel-tips"
+			data-section-id="travel tips"
+			class="menu-target"
+		>
+			<div class="event">
+				<h2>the night before</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+			<div class="event">
+				<h2>the day after</h2>
+				<h4>08 June 2024</h4>
+				<h5>event time</h5>
+				<h5>
+					Address line 1<br />Address line2<br />
+					Address line 3
+				</h5>
+			</div>
+		</section>
+		<section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg">
+			<h1>rsvp</h1>
+			<h4>please reply in a timely manner</h4>
+			<form id="rsvp" class="rsvp-card light-bg">
+				<div class="guest-form" data-guest-id="1">
+					<h4 class="card-header">Guest#1</h4>
+					<h5 data-event-id="1">The wedding</h5>
+					<div class="select-wrap event">
+						<select required name="Guest#2-response">
+							<option value>Will you be joining us?</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+						<i class="fa-solid fa-chevron-down"></i>
+					</div>
+					<h5 data-event-id="2">Another event</h5>
+					<div class="select-wrap event">
+						<select required name="Guest#2-response">
+							<option value>Will you be joining us?</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+						<i class="fa-solid fa-chevron-down"></i>
+					</div>
+					<textarea
+						name="Guest#1-dietary"
+						placeholder="List any dietary restrictions"
+					></textarea>
+				</div>
+				<div class="guest-form" data-guest-id="2">
+					<h4 class="card-header">Guest#2</h4>
+					<h5 data-event-id="1">The wedding</h5>
+					<div class="select-wrap event">
+						<select required name="Guest#2-response">
+							<option value>Will you be joining us?</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+						<i class="fa-solid fa-chevron-down"></i>
+					</div>
+					<textarea
+						name="Guest#1-dietary"
+						placeholder="List any dietary restrictions"
+					></textarea>
+				</div>
+				<button type="submit" value="Submit" name="submit">
+					Submit
+				</button>
+			</form>
+		</section>
+		<footer>Homemade with love by Nick</footer>
+	</body>
+	<script src="main.js"></script>
+</html>

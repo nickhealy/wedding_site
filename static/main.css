@@ -3,7 +3,6 @@ section {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	overflow: hidden;
 	margin: 0 !important;
 }
 
@@ -184,7 +183,6 @@ select
 	height: 35px;
 	resize: none;
 	display: block;
-	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

@@ -6,7 +6,14 @@
 	height: 100%;
 	width: 75%;
 	margin: auto;
+	max-width: 500px;
 }
+
+.login-container img {
+	margin-bottom: 25px;
+	min-width: 350px;
+}
+
 
 #login-form {
 	width: 100%;
@@ -31,4 +38,37 @@ input[type="text"],
 input[type="password"] {
 	border-bottom: 1px solid black;
 	width: 100%;
+}
+
+.temporary-container {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	padding: 45px;
+}
+
+.temporary-container img {
+	max-width: 50%;
+	max-height: 90%;
+}
+
+.temporary-container div {
+	width: 30%;
+}
+
+@media (max-width: 650px) {
+	.temporary-container {
+		padding-top: 25px;
+		flex-direction: column;
+		max-width: 100%;
+	}
+	.temporary-container img {
+		min-width: 300px;
+		margin-bottom: 15px;
+	}
+	.temporary-container div {
+		width: 100%;
+	}
 }
