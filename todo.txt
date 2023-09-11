@@ -3,8 +3,9 @@
 - error page
 - invalidating cloudfront cache
 ### necessary
+- lambda that generates site
+- implement backups for rsvp
 - edge lambda -- route users to site a b or c depending on their access level
-- get spinner working
 - get static site pipeline working
 - investigate storing as a csv
 

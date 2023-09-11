@@ -113,15 +113,38 @@ resource "aws_apigatewayv2_route" "login" {
   target    = "integrations/${aws_apigatewayv2_integration.login.id}"
 }
 
+resource "aws_apigatewayv2_integration" "rsvp" {
+  api_id                 = aws_apigatewayv2_api.wedding_site.id
+  integration_uri        = aws_lambda_function.rsvp_lambda.invoke_arn
+  integration_type       = "AWS_PROXY"
+  integration_method     = "POST"
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "rsvp" {
+  api_id = aws_apigatewayv2_api.wedding_site.id
+
+  route_key = "POST /rsvp"
+  target    = "integrations/${aws_apigatewayv2_integration.rsvp.id}"
+}
+
 resource "aws_cloudwatch_log_group" "api_gw" {
   name              = "/aws/api_gw/${aws_apigatewayv2_api.wedding_site.name}"
   retention_in_days = 30
 }
 
-resource "aws_lambda_permission" "api_gw" {
-  statement_id  = "AllowExecutionFromAPIGateway"
+resource "aws_lambda_permission" "login_api_gw_permission" {
+  statement_id  = "AllowLoginExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.login_lambda.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.wedding_site.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "rsvp_api_gw_permission" {
+  statement_id  = "AllowRsvpExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.rsvp_lambda.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.wedding_site.execution_arn}/*/*"
 }

@@ -18,6 +18,13 @@ resource "aws_s3_bucket_public_access_block" "disable_block_acls_resources" {
 
 # authentication/guest level access
 
+resource "aws_s3_bucket_versioning" "rsvps" {
+  bucket = aws_s3_bucket.wedding_site_resources.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_object" "guest_list" {
   bucket       = aws_s3_bucket.wedding_site_resources.id
   key          = "guest_list.json"
@@ -40,12 +47,12 @@ data "aws_iam_policy_document" "lambda_assume_role" {
   }
 }
 
-data "aws_iam_policy_document" "resources_read" {
+data "aws_iam_policy_document" "resources_rw" {
   statement {
     actions = [
       "s3:ListBucket",
       "s3:GetObject",
-      "s3:PutObject",
+      "s3:PutObject"
     ]
 
     resources = [
@@ -55,17 +62,17 @@ data "aws_iam_policy_document" "resources_read" {
   }
 }
 
-resource "aws_iam_role" "resources_read" {
-  name               = "resources_read"
+resource "aws_iam_role" "resources_rw" {
+  name               = "resources_rw"
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
   inline_policy {
-    name   = "read-guest-list-policy"
-    policy = data.aws_iam_policy_document.resources_read.json
+    name   = "read-write-resources-policy"
+    policy = data.aws_iam_policy_document.resources_rw.json
   }
 }
 
 resource "aws_iam_role_policy_attachment" "cloudwatch_role" {
-  role       = aws_iam_role.resources_read.name
+  role       = aws_iam_role.resources_rw.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
@@ -88,7 +95,7 @@ data "archive_file" "login_source" {
 resource "aws_lambda_function" "login_lambda" {
   filename      = "login.zip"
   function_name = "login"
-  role          = aws_iam_role.resources_read.arn
+  role          = aws_iam_role.resources_rw.arn
   handler       = "login.handler"
 
   source_code_hash = data.archive_file.login_source.output_base64sha256

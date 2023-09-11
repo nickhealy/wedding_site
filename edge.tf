@@ -12,7 +12,7 @@ resource "aws_lambda_function" "edge_lambda" {
   provider = aws.us-east-1
   filename      = "edge.zip"
   function_name = "edge"
-  role          = aws_iam_role.resources_read.arn
+  role          = aws_iam_role.resources_rw.arn
   handler       = "edge.handler"
   publish       = true
   source_code_hash = data.archive_file.edge_source.output_base64sha256
