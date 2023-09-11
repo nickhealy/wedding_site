@@ -9,7 +9,7 @@ const heroOptions = {
   rootMargin: "0px",
 };
 
-const heroObserver = new IntersectionObserver(function(entries, _) {
+const heroObserver = new IntersectionObserver(function (entries, _) {
   entries.forEach((entry) => {
     if (!entry.isIntersecting) {
       headerText.classList.remove("hidden");
@@ -33,11 +33,11 @@ const createMenuHTML = () => {
   const menuInnerHtml = `
   <div>
     ${menuItems.reduce(
-    (acc, { id, dataset: { sectionId } }) =>
-      acc +
-      `<a href="#${id}"onclick="toggleMenu()">${sectionId.toUpperCase()}</a>`,
-    ""
-  )}
+      (acc, { id, dataset: { sectionId } }) =>
+        acc +
+        `<a href="#${id}"onclick="toggleMenu()">${sectionId.toUpperCase()}</a>`,
+      ""
+    )}
 </div>
 `;
   return menuInnerHtml;
@@ -60,14 +60,35 @@ const toggleMenu = () => {
 hamburger.addEventListener("click", (e) => {
   console.log("menu clicked");
   e.preventDefault();
-  toggleMenu()
+  toggleMenu();
 });
 
 // rsvp
-const forms = Array.from(document.querySelectorAll('.guest-form'))
-const submit = () => {
+const rsvpForm = document.getElementById("rsvp");
+const forms = Array.from(document.querySelectorAll(".guest-form"));
+rsvpForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   const formData = forms.reduce((acc, curr) => {
-    const guestId = curr.querySelector('h4').dataset.guestId
-    const rsvp = formData
-  }) 
-}
+    const guestId = curr.querySelector("h4").dataset.guestId;
+    const events = Array.from(curr.querySelectorAll("h5"));
+    const rsvps = Array.from(curr.querySelectorAll('select')).map((sel) => {
+      return sel.value === '1' ? true : false
+    });
+    const evWithRsvp = events.map((event, idx) => ({
+      event: event.dataset.eventId,
+      rsvp: rsvps[idx],
+    }));
+    const dietaryRestrictions = curr.querySelector("textarea").value || "";
+
+    return [
+      ...acc,
+      {
+        id: Number(guestId), // hack because this is what lambda is expected
+        events: evWithRsvp,
+        dietary_restrictions: dietaryRestrictions,
+      },
+    ];
+  }, []);
+
+  console.log({ formData });
+});

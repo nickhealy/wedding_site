@@ -4,7 +4,11 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="main.index.css" />
-		<link rel="icon" type="image/x-icon" href="assets/images/nickannabellePNG1.png">
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="assets/images/nickannabellePNG1.png"
+		/>
 		<script
 			src="https://kit.fontawesome.com/12f6611ba5.js"
 			crossorigin="anonymous"
@@ -106,9 +110,9 @@
 			<h1>rsvp</h1>
 			<h4>please reply in a timely manner</h4>
 			<form id="rsvp" class="rsvp-card light-bg">
-				<div class="guest-form" data-guest-id="1">
-					<h4 class="card-header">Guest#1</h4>
-					<h5 data-event-id="1">The wedding</h5>
+				<div class="guest-form">
+					<h4 class="card-header" data-guest-id=1>Guest#1</h4>
+					<h5 data-event-id="wedding">The wedding</h5>
 					<div class="select-wrap event">
 						<select required name="Guest#2-response">
 							<option value>Will you be joining us?</option>
@@ -117,23 +121,7 @@
 						</select>
 						<i class="fa-solid fa-chevron-down"></i>
 					</div>
-					<h5 data-event-id="2">Another event</h5>
-					<div class="select-wrap event">
-						<select required name="Guest#2-response">
-							<option value>Will you be joining us?</option>
-							<option value="1">Yes</option>
-							<option value="0">No</option>
-						</select>
-						<i class="fa-solid fa-chevron-down"></i>
-					</div>
-					<textarea
-						name="Guest#1-dietary"
-						placeholder="List any dietary restrictions"
-					></textarea>
-				</div>
-				<div class="guest-form" data-guest-id="2">
-					<h4 class="card-header">Guest#2</h4>
-					<h5 data-event-id="1">The wedding</h5>
+					<h5 data-event-id="other event">Another event</h5>
 					<div class="select-wrap event">
 						<select required name="Guest#2-response">
 							<option value>Will you be joining us?</option>
@@ -147,7 +135,23 @@
 						placeholder="List any dietary restrictions"
 					></textarea>
 				</div>
-				<button type="submit" value="Submit" name="submit">
+				<div class="guest-form">
+					<h4 class="card-header" data-guest-id=2>Guest#2</h4>
+					<h5 data-event-id="wedding">The wedding</h5>
+					<div class="select-wrap event">
+						<select required name="Guest#2-response">
+							<option value>Will you be joining us?</option>
+							<option value="1">Yes</option>
+							<option value="0">No</option>
+						</select>
+						<i class="fa-solid fa-chevron-down"></i>
+					</div>
+					<textarea
+						name="Guest#1-dietary"
+						placeholder="List any dietary restrictions"
+					></textarea>
+				</div>
+				<button id="submit" type="submit" value="Submit" name="submit">
 					Submit
 				</button>
 			</form>
