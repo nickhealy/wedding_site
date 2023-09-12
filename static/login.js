@@ -12,7 +12,7 @@ const clearError = (el) => {
 };
 
 const showSpinner = (button) => {
-  console.log("showing spinner")
+  console.log("showing spinner");
   button.innerHTML = '<div class="spinner"></div>';
 };
 
@@ -43,7 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!isValidEmail(email)) {
         setError(errorMessage, "Please provide a valid email address");
-        throw new Error("INVALID_EMAIL")
+        removeSpinner(loginButton);
+        loginButton.disabled = false;
+        return;
       }
 
       showSpinner(loginButton);
@@ -59,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         location.href = `${SITE_BASE}/main.html`;
         // Successful login logic here
         console.log("Login successful");
-        return
+        return;
       } else if (response.status === 403) {
         setError(errorMessage, "Invalid Credentials");
         removeSpinner(loginButton);
@@ -70,9 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("An error occurred:", error);
       setError(errorMessage, "Something went wrong");
-      removeSpinner(loginButton);
-      loginButton.disabled = false
     }
+    removeSpinner(loginButton);
+    loginButton.disabled = false;
   });
 
   // Function to validate email format

@@ -1,3 +1,4 @@
+const API_BASE_URL = "https://api.nickandannabellegetmarried.com";
 // header/scrolling behavior
 const header = document.getElementById("header");
 const headerText = header.querySelector("h1");
@@ -64,15 +65,37 @@ hamburger.addEventListener("click", (e) => {
 });
 
 // rsvp
+
+const showSpinner = (button) => {
+  button.disabled = true;
+  console.log("showing spinner");
+  button.innerHTML = '<div class="spinner"></div>';
+};
+
+const removeSpinner = (button) => {
+  button.disabled = false;
+  button.innerHTML = "Login";
+};
+const setError = (el, message) => {
+  el.textContent = message;
+  el.classList.remove("hidden");
+};
+
+const clearError = (el) => {
+  el.textContent = "";
+  el.classList.add("add");
+};
 const rsvpForm = document.getElementById("rsvp");
 const forms = Array.from(document.querySelectorAll(".guest-form"));
-rsvpForm.addEventListener("submit", (e) => {
+const submitBtn = document.getElementById("submit");
+rsvpForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+  // get form data
   const formData = forms.reduce((acc, curr) => {
     const guestId = curr.querySelector("h4").dataset.guestId;
     const events = Array.from(curr.querySelectorAll("h5"));
-    const rsvps = Array.from(curr.querySelectorAll('select')).map((sel) => {
-      return sel.value === '1' ? true : false
+    const rsvps = Array.from(curr.querySelectorAll("select")).map((sel) => {
+      return sel.value === "1" ? true : false;
     });
     const evWithRsvp = events.map((event, idx) => ({
       event: event.dataset.eventId,
@@ -90,5 +113,37 @@ rsvpForm.addEventListener("submit", (e) => {
     ];
   }, []);
 
-  console.log({ formData });
+  showSpinner(submitBtn);
+  // make rsvp request
+  const response = await fetch(`${API_BASE_URL}/rsvp`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  if (response.status === 200) {
+    // successful rsvp
+    console.log("rsvp successfull");
+    showSuccessMessage(document.querySelector('.rsvp-card'))
+    return;
+  } else if (response.status === 400) {
+    setError(errorMessage, "Invalid Request");
+    removeSpinner(loginButton);
+  } else if (response.status === 500) {
+    setError(errorMessage, "Something went wrong on our end");
+    removeSpinner(loginButton);
+  }
 });
+
+const showSuccessMessage = (container) => {
+  debugger
+  container.innerHTML = `
+    <div id="success"> 
+        <h4>
+            Response recorded! We are looking forward to seeing you :) 
+        </h4>
+    </div>
+`;
+};

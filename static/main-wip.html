@@ -109,9 +109,9 @@
 		<section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg">
 			<h1>rsvp</h1>
 			<h4>please reply in a timely manner</h4>
-			<form id="rsvp" class="rsvp-card light-bg">
+			<form class="rsvp-card light-bg">
 				<div class="guest-form">
-					<h4 class="card-header" data-guest-id=1>Guest#1</h4>
+					<h4 class="card-header" data-guest-id="1">Guest#1</h4>
 					<h5 data-event-id="wedding">The wedding</h5>
 					<div class="select-wrap event">
 						<select required name="Guest#2-response">
@@ -136,7 +136,7 @@
 					></textarea>
 				</div>
 				<div class="guest-form">
-					<h4 class="card-header" data-guest-id=2>Guest#2</h4>
+					<h4 class="card-header" data-guest-id="2">Guest#2</h4>
 					<h5 data-event-id="wedding">The wedding</h5>
 					<div class="select-wrap event">
 						<select required name="Guest#2-response">
@@ -154,6 +154,7 @@
 				<button id="submit" type="submit" value="Submit" name="submit">
 					Submit
 				</button>
+				<div id="error-message" class="error empty"></div>
 			</form>
 		</section>
 		<footer>Homemade with love by Nick</footer>

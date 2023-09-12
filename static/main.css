@@ -135,12 +135,13 @@ header h1 {
 }
 
 #rsvp {
-	padding: 0 20px;
 	width: 100%;
+	height: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	position: relative;
 }
 
 
@@ -149,8 +150,15 @@ header h1 {
 }
 
 .rsvp-card {
-	width: 100%;
+	position: absolute;
+	padding: 0 40px;
+	width: 80%;
 	max-width: 700px;
+	top: 75%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 
@@ -202,8 +210,15 @@ textarea {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	position: relative;
 	height: 35px;
 	width: 100%;
+}
+
+.select-wrap i {
+	position: absolute;
+	right: 10px;
+	top: 10px;
 }
 
 #rsvp button {
@@ -212,7 +227,28 @@ textarea {
 	font-weight: bold;
 	font-size: 1.25rem;
 	width: 200px;
-	margin: 0 auto;
 	margin-bottom: 25px;
 	/* width: 100px; */
 }
+
+@media (max-width: 500px) {
+
+	.rsvp-card {
+		width: 90%;
+	}
+
+}
+
+#success {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+#success h4 {
+	border-bottom: none;
+	margin-bottom: 0;
+}
+

@@ -2,11 +2,15 @@
 - make api auto deploy via terraform
 - error page
 - invalidating cloudfront cache
+- figure out why site wasn't working in Korea
 ### necessary
-- lambda that generates site
+- rsvp closes after submit
+- replace photos
+- get font for main content looking ok
+- lambda for generating page
+- send rsvp to the backend
+- navigating on page
 - implement backups for rsvp
-- edge lambda -- route users to site a b or c depending on their access level
-- get static site pipeline working
 - investigate storing as a csv
 
 

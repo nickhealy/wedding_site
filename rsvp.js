@@ -7,6 +7,11 @@ const {
 const region = process.env.REGION;
 const s3Client = new S3Client({ region });
 
+const headers = {
+    "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+};
+
 exports.handler = async (event) => {
     try {
         const params = {
@@ -23,20 +28,15 @@ exports.handler = async (event) => {
             rsvpsData = {};
         }
 
-        const { id, dietary_restrictions, events } = JSON.parse(event.body);
-        if (!id) {
-            console.error('Missing "id" property in the request body');
-            return {
-                statusCode: 400,
-            };
-        }
+        const rsvps = JSON.parse(event.body);
+        console.log({rsvps})
 
         const updatedParams = {
             Bucket: process.env.RESOURCES_BUCKET,
             Key: "rsvps.json",
             Body: JSON.stringify({
                 ...rsvpsData,
-                [id]: { dietary_restrictions, events },
+                ...rsvps.reduce((acc, curr) => ({ ...acc, [curr.id]: curr }), {}),
             }),
         };
         const putObjectCommand = new PutObjectCommand(updatedParams);
@@ -44,11 +44,13 @@ exports.handler = async (event) => {
 
         console.log("Data updated successfully");
         return {
+            headers,
             statusCode: 200,
         };
     } catch (error) {
         console.error(error);
         return {
+            headers,
             statusCode: 500,
         };
     }
