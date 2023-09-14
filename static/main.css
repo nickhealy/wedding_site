@@ -1,25 +1,51 @@
 section {
-	height: 100%;
+	width: 100vw;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 0 !important;
 }
 
+#hero {
+	height: 100%;
+}
+
+#hero img {
+	max-width: 800px;
+}
+
+@media (max-width: 900px) {
+	#hero img {
+		max-width: 90%;
+	}
+}
+
+#rsvp,
+#travel-tips,
 #main-events,
 #other-events {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: space-evenly;
+	justify-content: flex-start;
+	padding: 50px;
+	row-gap: 30px;
 }
 
-#other-events-card{
+@media (max-width: 400px) {
+	#rsvp,
+	#travel-tips,
+	#main-events,
+	#other-events {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+#other-events {
 	filter: saturate(100%) hue-rotate(0deg) brightness(100%) blur(0px);
 	background-image: url("https://myblissandbone.com/bradford/_images/67fc3f66c8c81b5e0a6ed3eec7ecc8e7.jpeg");
 	background-position: center center;
-}
-#other-events{
-	background-color: var(--primary-grey);
 	color: var(--primary-black);
 }
 
@@ -38,16 +64,26 @@ section {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	line-height: 2em;
+	line-height: 1.25em;
 	text-align: center;
 }
 
 .event h2 {
-	margin-bottom: 45px;
+	margin-bottom: 25px;
+}
+
+.event h3 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
 }
 
 .event h4 {
 	font-weight: bold;
+}
+
+.event hr {
+	width: 25px;
+	margin-bottom: 10px;
 }
 
 header {
@@ -63,11 +99,12 @@ header {
 	align-items: center;
 	justify-content: space-between;
 	z-index: 10;
+	max-height: 90px;
 }
 
-header h1 {
-	font-size: 1.75rem;
+header img {
 	max-width: 75%;
+	height: 80px;
 }
 
 #hamburger {
@@ -134,19 +171,38 @@ header h1 {
 	row-gap: 25px;
 }
 
+#photo {
+	height: 100vh;
+	width: 100vw;
+	background-image: url("assets/images/nickbelle.png");
+	background-size: cover;
+	background-position: center center;
+	filter: saturate(0%) hue-rotate(0deg) brightness(82%) opacity(100%)
+		blur(0px);
+}
+
+#photo-cont > h1 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 50%;
+	width: 100%;
+	color: white;
+	filter: none;
+	position: absolute;
+	top: 45%;
+	right: 0;
+	/* background: rgba(0, 0, 0, 0.5); */
+}
+
 #rsvp {
 	width: 100%;
 	height: 50%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	position: relative;
 }
 
-
 #rsvp > h4 {
-	margin-bottom: 20px
+	margin-bottom: 20px;
 }
 
 .rsvp-card {
@@ -160,7 +216,6 @@ header h1 {
 	align-items: center;
 	justify-content: center;
 }
-
 
 .rsvp-card h4 {
 	margin-bottom: 25px;
@@ -185,8 +240,7 @@ header h1 {
 }
 
 textarea,
-select
-{
+select {
 	width: 100%;
 	height: 35px;
 	resize: none;
@@ -232,11 +286,9 @@ textarea {
 }
 
 @media (max-width: 500px) {
-
 	.rsvp-card {
 		width: 90%;
 	}
-
 }
 
 #success {
@@ -251,4 +303,3 @@ textarea {
 	border-bottom: none;
 	margin-bottom: 0;
 }
-

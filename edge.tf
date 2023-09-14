@@ -6,6 +6,11 @@ data "archive_file" "edge_source" {
     content  = file("./edge.js")
     filename = "edge.js"
   }
+
+  source {
+    content = file("./static/handlebars.min-v4.7.8.js")
+    filename = "handlebars.js"
+  }
 }
 
 resource "aws_lambda_function" "edge_lambda" {

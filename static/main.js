@@ -1,7 +1,7 @@
 const API_BASE_URL = "https://api.nickandannabellegetmarried.com";
 // header/scrolling behavior
 const header = document.getElementById("header");
-const headerText = header.querySelector("h1");
+const headerText = header.querySelector("img");
 const hero = document.querySelector("#hero");
 
 const heroOptions = {
@@ -15,9 +15,11 @@ const heroObserver = new IntersectionObserver(function (entries, _) {
     if (!entry.isIntersecting) {
       headerText.classList.remove("hidden");
       header.style.borderBottom = "1px solid black";
+      header.style.opacity = 1
     } else {
       headerText.classList.add("hidden");
       header.style.borderBottom = "none";
+      header.style.opacity = 0
     }
   });
 }, heroOptions);

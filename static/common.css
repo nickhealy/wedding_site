@@ -3,6 +3,7 @@ body {
 	background-color: var(--primary-white);
 	height: 100vh;
 	width: 100vw;
+	overflow-x: hidden;
 }
 
 .main {

@@ -55,7 +55,7 @@ exports.handler = async (event) => {
 		const guestPermissions = JSON.parse(guestsRaw);
 
 		const guestData = Object.values(guestPermissions).find(
-			({ email: dbEmail }) => dbEmail === email
+			({ email: dbEmail }) => dbEmail.toLowerCase() === email.toLowerCase()
 		);
 		// Check if the provided email is in the mappings
 		if (!guestData) {

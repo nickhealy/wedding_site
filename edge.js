@@ -1,8 +1,17 @@
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const Handlebars = require("./static/handlebars.min-v4.7.8");
+const fs = require("fs");
+const path = require("path");
 
-const s3Client = new S3Client();
+const s3Client = new S3Client({ region: "eu-west-2" });
 const RESOURCES_BUCKET = "nickbelle-site-resources";
 const SESSIONS_KEY = "sessions.json";
+const GUEST_LIST_KEY = "guest_list.json";
+
+const mainTemplate = fs.readFileSync(
+    path.join(__dirname, "./main.handlebars"),
+    { encoding: "utf-8" }
+);
 
 exports.handler = async (event) => {
     const request = event.Records[0].cf.request;
@@ -24,14 +33,17 @@ exports.handler = async (event) => {
                 const sessionId = getSessionIdFromCookie(sessionIdCookie.value);
 
                 if (await isValidSession(userId, sessionId)) {
+                    const guestData = await getGuestData(userId);
+                    const compileTemplate = Handlebars.compile(mainTemplate);
                     // User is authenticated, do nothing
-                    return request;
+                    return compileTemplate({guestData});
                 }
             }
             console.log("one or both of user_id or session_id is missing");
         }
     } catch (error) {
         console.error("Error:", error);
+        throw error;
     }
     return {
         status: "302",
@@ -83,8 +95,41 @@ async function isValidSession(userId, sessionId) {
         console.log("user does not have valid session");
         return false;
     } catch (error) {
-        console.error("Error fetching S3 object:", error);
+        console.error("Error fetching sessions:", error);
     }
 
     return false;
 }
+
+const getGuestData = async (userId) => {
+    // Read email-permission mappings from S3
+    const getObjectCommand = new GetObjectCommand({
+        Bucket: RESOURCES_BUCKET,
+        Key: GUEST_LIST_KEY,
+    });
+
+    console.log("getting guest data for ", email);
+    const data = await s3.send(getObjectCommand);
+    const guestsRaw = await data.Body.transformToString();
+    const parsedGuestsRaw = JSON.parse(guestsRaw);
+    const guestData = Object.values(parsedGuestsRaw).find(
+        ({ id }) => id.toString() === userId.toString()
+    );
+
+    // Check if the user_id exists in the JSON object
+    if (!guestData) {
+        throw new Error("could not find guest data");
+    }
+
+    const plus_ones = [];
+
+    for (plusOneId of guestData.plus_ones) {
+        const plusOneData = Object.values(parsedGuestsRaw).find(
+            ({ id }) => id.toString() === plusOneId.toString()
+        );
+
+        plus_ones.push(plusOneData)
+    }
+
+    return {...guestData, plus_ones};
+};
