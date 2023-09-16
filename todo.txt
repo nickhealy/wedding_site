@@ -6,6 +6,8 @@
 ### necessary
 - store as csv
 - see if you can make the login image bigger on mobile
+- make thank you bigger (fuck around with cropping container for images)
+-make the big day take up full viewport on mobile
 - lambda for generating page
 - navigating on page
 - implement backups for rsvp

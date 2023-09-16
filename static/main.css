@@ -24,9 +24,19 @@ section {
 	}
 }
 
+#main-events > div {
+	width: 50%;
+	height: 100%;
+}
+#main-events div:first-child {
+	background-image: url("./assets/images/house.jpg");
+	background-position: bottom 10% right 40%;
+	background-size: cover;
+}
+
 #rsvp,
 #travel-tips,
-#main-events,
+#main-events > div,
 #other-events {
 	display: flex;
 	flex-direction: column;
@@ -38,7 +48,7 @@ section {
 @media (max-width: 400px) {
 	#rsvp,
 	#travel-tips,
-	#main-events,
+	#main-events > div,
 	#other-events {
 		padding-left: 20px;
 		padding-right: 20px;
@@ -55,6 +65,17 @@ section {
 @media (max-width: 677px) {
 	section {
 		flex-direction: column;
+	}
+	#main-events > div {
+		width: 100%;
+	}
+	#main-events div:first-child {
+		width: 100%;
+		background-position: bottom 10% right 40%;
+		display: block;
+	}
+	#main-events div:nth-child(2) {
+		width: 100%;
 	}
 }
 
@@ -213,7 +234,7 @@ img.white {
 @media (max-width: 1000px) {
 	#photo-cont > img {
 		bottom: -20px;
-	right: 30px;
+		right: 30px;
 	}
 }
 
