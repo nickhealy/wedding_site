@@ -4,11 +4,9 @@
 - invalidating cloudfront cache
 - figure out why site wasn't working in Korea
 ### necessary
-- rsvp closes after submit
-- replace photos
-- get font for main content looking ok
+- store as csv
+- see if you can make the login image bigger on mobile
 - lambda for generating page
-- send rsvp to the backend
 - navigating on page
 - implement backups for rsvp
 - investigate storing as a csv

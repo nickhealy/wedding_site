@@ -41,7 +41,7 @@
 			data-section-id="wedding"
 		>
 			<!-- <div class="crop-container"> -->
-			<!-- 	<!-- <img src="assets/images/house.jpg" /> -->
+			<!-- 	<!-- <img src="assets/images/house.jpg" /> --> -->
 			<!-- </div> -->
 			<!-- <div class="event-container"> -->
 				<img
@@ -49,63 +49,8 @@
 					src="assets/images/the-big-day.png"
 				/>
 
-				{{#contains "ceremony" events }}
-				<div class="event">
-					<h3>THE CEREMONY</h3>
-					<hr />
-					<h4>08 June 2024</h4>
-					<h5>event time</h5>
-					<h5>
-						Address line 1<br />Address line2<br />
-						Address line 3
-					</h5>
-				</div>
-				{{/contains}} {{#contains "reception" events }}
-				<div class="event">
-					<h3>The Reception</h3>
-					<hr />
-					<h4>08 June 2024</h4>
-					<h5>event time</h5>
-					<h5>
-						Address line 1<br />Address line2<br />
-						Address line 3
-					</h5>
-				</div>
-				{{/contains}}
-			<!-- </div> -->
+ 			<!-- </div> -->
 		</section>
-		{{#if other_events}}
-		<section
-			id="other-events"
-			class="menu-target"
-			data-section-id="other events"
-		>
-			<img class="card-header" src="assets/images/please-join-us.png" />
-			{{#contains "welcome dinner" events }}
-			<div class="event">
-				<h3>welcome dinner</h3>
-				<hr />
-				<h4>08 June 2024</h4>
-				<h5>event time</h5>
-				<h5>
-					Address line 1<br />Address line2<br />
-					Address line 3
-				</h5>
-			</div>
-			{{/contains}} {{#contains "pool party" events }}
-			<div class="event">
-				<h3>pool party</h3>
-				<hr />
-				<h4>08 June 2024</h4>
-				<h5>event time</h5>
-				<h5>
-					Address line 1<br />Address line2<br />
-					Address line 3
-				</h5>
-			</div>
-			{{/contains}}
-		</section>
-		{{/if}}
 		<section
 			id="travel-tips"
 			data-section-id="travel tips"
@@ -136,40 +81,12 @@
 		<section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg">
 			<img class="card-header white" src="assets/images/rsvp.png" />
 			<h4>please reply in a timely manner</h4>
-			{{#if has_rsvp}}
-			<div id="success">
-				<h4>
-					Response recorded! We are looking forward to seeing you :)
-				</h4>
-			</div>
-			{{else}}
 			<form class="rsvp-card light-bg">
-				{{#each invites}}
-				<div class="guest-form">
-					<h4 data-guest-id="{{id}}">{{name}}</h4>
-					{{#each ../events}}
-					<h5 data-event-id={{this}}>{{this}}</h5>
-					<div class="select-wrap event">
-						<select required name="response">
-							<option value>Will you be joining us?</option>
-							<option value="1">Yes</option>
-							<option value="0">No</option>
-						</select>
-						<i class="fa-solid fa-chevron-down"></i>
-					</div>
-					{{/each}}
-					<textarea
-						name="{{name}}-dietary"
-						placeholder="List any dietary restrictions"
-					></textarea>
-				</div>
-				{{/each}}
 				<button id="submit" type="submit" value="Submit" name="submit">
 					Submit
 				</button>
 				<div id="error-message" class="error empty"></div>
 			</form>
-			{{/if}}
 		</section>
 		<section style="height: 85vh"></section>
 		<footer>Homemade with love by Nick</footer>

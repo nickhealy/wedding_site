@@ -1,0 +1,5 @@
+{
+	"other_events": true,
+	"events": ["ceremony", "reception", "welcome dinner", "pool party"],
+	"invites": [{ "name": "Dwayne Johnson", "id": 1 },{ "name": "Martha Stewart", "id": 2 }]
+}

@@ -2,7 +2,7 @@
 	"1": {
 		"name": "Nick Healy",
 		"email": "nickrhealy@gmail.com",
-		"events": [],
+		"events": ["ceremony"],
 		"plus_ones": [],
 		"id": 1
 	},

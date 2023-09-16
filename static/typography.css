@@ -4,7 +4,7 @@
 	src: 
 		url("assets/fonts/babybowser.ttf") format("truetype");
 }
-@import url('fonts.googleapis.com/css2?family=Jura&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap');
 
 h1 {
 	font-family: 'babybowser';

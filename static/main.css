@@ -1,5 +1,9 @@
+body {
+	font-family: "Raleway", sans-serif;
+}
 section {
 	width: 100vw;
+	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -27,9 +31,8 @@ section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-start;
-	padding: 50px;
-	row-gap: 30px;
+	justify-content: center;
+	row-gap: 45px;
 }
 
 @media (max-width: 400px) {
@@ -44,7 +47,7 @@ section {
 
 #other-events {
 	filter: saturate(100%) hue-rotate(0deg) brightness(100%) blur(0px);
-	background-image: url("https://myblissandbone.com/bradford/_images/67fc3f66c8c81b5e0a6ed3eec7ecc8e7.jpeg");
+	background-image: url("./assets/images/texture-bg.jpg");
 	background-position: center center;
 	color: var(--primary-black);
 }
@@ -66,6 +69,7 @@ section {
 	justify-content: center;
 	line-height: 1.25em;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 .event h2 {
@@ -74,11 +78,15 @@ section {
 
 .event h3 {
 	font-size: 1.5rem;
+	font-weight: 400;
 	margin-bottom: 10px;
 }
 
+.event h5,
 .event h4 {
+	font-weight: 200;
 	font-weight: bold;
+	text-transform: none;
 }
 
 .event hr {
@@ -93,18 +101,28 @@ header {
 	width: 100%;
 	background-color: var(--primary-white);
 	color: var(--primary-black);
-	/* border-bottom: 1px solid var(--primary-black); */
 	display: flex;
 	padding: 15px;
 	align-items: center;
 	justify-content: space-between;
 	z-index: 10;
-	max-height: 90px;
+	max-height: 80px;
 }
 
 header img {
 	max-width: 75%;
-	height: 80px;
+	max-height: 80px;
+}
+
+.card-header {
+	/* background-color: pink; */
+	width: 500px;
+	height: 125px;
+	object-fit: cover;
+}
+img.white {
+	filter: invert(100%) sepia(100%) saturate(3844%) hue-rotate(173deg)
+		brightness(134%) contrast(107%);
 }
 
 #hamburger {
@@ -112,9 +130,6 @@ header img {
 	flex-direction: column;
 	cursor: pointer;
 	padding: 10px;
-	position: fixed;
-	top: 10px;
-	right: 10px;
 	z-index: 201;
 }
 
@@ -123,7 +138,10 @@ header img {
 	height: 3px;
 	background-color: var(--primary-black);
 	margin: 4px 0;
-	transition: transform 0.4s, opacity 0.4s, background-color 0.4s;
+	transition:
+		transform 0.4s,
+		opacity 0.4s,
+		background-color 0.4s;
 }
 #hamburger.close div {
 	background-color: var(--primary-white);
@@ -181,18 +199,22 @@ header img {
 		blur(0px);
 }
 
-#photo-cont > h1 {
+#photo-cont > img {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 50%;
-	width: 100%;
-	color: white;
-	filter: none;
 	position: absolute;
-	top: 45%;
-	right: 0;
+	height: 350px;
+	bottom: 10px;
+	right: 10px;
 	/* background: rgba(0, 0, 0, 0.5); */
+}
+
+@media (max-width: 1000px) {
+	#photo-cont > img {
+		bottom: -20px;
+	right: 30px;
+	}
 }
 
 #rsvp {
@@ -201,8 +223,9 @@ header img {
 	position: relative;
 }
 
-#rsvp > h4 {
-	margin-bottom: 20px;
+#rsvp img {
+	z-index: 10000;
+	height: 250px;
 }
 
 .rsvp-card {
@@ -218,10 +241,13 @@ header img {
 }
 
 .rsvp-card h4 {
-	margin-bottom: 25px;
+	/* margin-bottom: 25px; */
 	line-height: 2.5rem;
+	font-size: 1.5rem;
 	width: 100%;
-	border-bottom: 1px solid var(--primary-grey);
+	color: var(--text-grey);
+	text-transform: uppercase;
+	/* border-bottom: 1px solid var(--primary-grey); */
 }
 
 .rsvp-card h5 {

@@ -1,17 +1,17 @@
 .login-container {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 	flex-direction: column;
 	height: 100%;
 	width: 75%;
-	margin: auto;
-	max-width: 500px;
+	margin: 50px auto;
+	max-width: 700px;
 }
 
 .login-container img {
-	margin-bottom: 25px;
-	min-width: 350px;
+	margin-bottom: 50px;
+	min-width: 400px;
 }
 
 
@@ -38,6 +38,8 @@ input[type="text"],
 input[type="password"] {
 	border-bottom: 1px solid black;
 	width: 100%;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
 }
 
 .temporary-container {
