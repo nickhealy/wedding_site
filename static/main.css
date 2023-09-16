@@ -91,6 +91,7 @@ section {
 	line-height: 1.25em;
 	text-align: center;
 	text-transform: uppercase;
+	margin-bottom: 10px;
 }
 
 .event h2 {
@@ -103,16 +104,17 @@ section {
 	margin-bottom: 10px;
 }
 
-.event h5,
 .event h4 {
+	font-weight: bold
+}
+.event h5{
 	font-weight: 200;
-	font-weight: bold;
 	text-transform: none;
 }
 
 .event hr {
 	width: 25px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 header {

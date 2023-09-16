@@ -1,5 +1,5 @@
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
-const Handlebars = require("./static/handlebars.min-v4.7.8");
+const Handlebars = require("./handlebars.min-v4.7.8");
 const fs = require("fs");
 const path = require("path");
 
@@ -9,7 +9,7 @@ const SESSIONS_KEY = "sessions.json";
 const GUEST_LIST_KEY = "guest_list.json";
 
 const mainTemplate = fs.readFileSync(
-    path.join(__dirname, "./main.handlebars"),
+    path.join(__dirname, "./main.handlebars.html"),
     { encoding: "utf-8" }
 );
 
