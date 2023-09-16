@@ -1,4 +1,5 @@
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
+const {parseCsv} = require('./csv') 
 const SessionCache = require("./sessionCache");
 
 const region = process.env.AWS_REGION;
@@ -46,16 +47,17 @@ exports.handler = async (event) => {
 		// Read email-permission mappings from S3
 		const getObjectCommand = new GetObjectCommand({
 			Bucket: resourcesBucket,
-			Key: "guest_list.json",
+			Key: "guest_list.csv",
 		});
 
 		console.log("getting guest data for ", email);
 		const data = await s3.send(getObjectCommand);
 		const guestsRaw = await data.Body.transformToString();
-		const guestPermissions = JSON.parse(guestsRaw);
+		const guestPermissions = parseCsv(guestsRaw)
 
-		const guestData = Object.values(guestPermissions).find(
-			({ email: dbEmail }) => dbEmail.toLowerCase() === email.toLowerCase()
+		console.log({ guestPermissions })
+		const guestData = guestPermissions.find(
+			({ Email: dbEmail }) => dbEmail.toLowerCase() === email.toLowerCase()
 		);
 		// Check if the provided email is in the mappings
 		if (!guestData) {

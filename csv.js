@@ -1,4 +1,4 @@
-export default (csvData) => {
+const parseCsv =(csvData) => {
     // Split the CSV data into rows, considering both '\r\n' and '\n' line endings.
     const rows = csvData.split(/\r?\n/);
 
@@ -27,5 +27,11 @@ export default (csvData) => {
 
         data.push(rowData);
     }
+
+    return data
+}
+
+module.exports = {
+    parseCsv
 }
 

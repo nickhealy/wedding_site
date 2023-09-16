@@ -90,6 +90,10 @@ data "archive_file" "login_source" {
     content  = file("./sessionCache.js")
     filename = "sessionCache.js"
   }
+  source {
+    content  = file("./csv.js")
+    filename = "csv.js"
+  }
 }
 
 resource "aws_lambda_function" "login_lambda" {
