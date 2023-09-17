@@ -1,12 +1,7 @@
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
-const {parseCsv} = require('./csv') 
-const SessionCache = require("./sessionCache");
+const { getGuestInfo, setSessionId } = require("./db");
 
-const region = process.env.AWS_REGION;
 const PASSWORD = process.env.SITE_PASSWORD;
-const resourcesBucket = process.env.RESOURCES_BUCKET;
 
-const s3 = new S3Client({ region });
 
 function generateRandomHash(length = 16) {
 	const characters =
@@ -44,23 +39,9 @@ exports.handler = async (event) => {
 	}
 
 	try {
-		// Read email-permission mappings from S3
-		const getObjectCommand = new GetObjectCommand({
-			Bucket: resourcesBucket,
-			Key: "guest_list.csv",
-		});
+		const { email: emailFromDb, rsvpd, id } = await getGuestInfo(email)
 
-		console.log("getting guest data for ", email);
-		const data = await s3.send(getObjectCommand);
-		const guestsRaw = await data.Body.transformToString();
-		const guestPermissions = parseCsv(guestsRaw)
-
-		console.log({ guestPermissions })
-		const guestData = guestPermissions.find(
-			({ Email: dbEmail }) => dbEmail.toLowerCase() === email.toLowerCase()
-		);
-		// Check if the provided email is in the mappings
-		if (!guestData) {
+		if (!emailFromDb) {
 			return {
 				headers,
 				statusCode: 403,
@@ -80,9 +61,8 @@ exports.handler = async (event) => {
 
 		console.log(`found data for ${email}`);
 
-		const { id } = guestData;
 		const newSessionToken = generateRandomHash();
-		await SessionCache.set(id, newSessionToken);
+		await setSessionId(id, newSessionToken);
 
 		const response = {
 			headers,
@@ -90,6 +70,7 @@ exports.handler = async (event) => {
 			cookies: [
 				`user_id=${id}; HttpOnly; SameSite=None; Domain=nickandannabellegetmarried.com; Secure`,
 				`session_id=${newSessionToken}; HttpOnly;  Domain=nickandannabellegetmarried.com; SameSite=None; Secure`,
+				`has_rsvp=${rsvpd}; HttpOnly;  Domain=nickandannabellegetmarried.com; SameSite=None; Secure`,
 			],
 		};
 		return response;

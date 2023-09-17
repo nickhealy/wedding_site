@@ -15,7 +15,7 @@ resource "aws_lambda_function" "csv_upload_lambda" {
   filename      = "csv-upload.zip"
   function_name = "csv_upload"
   role          = aws_iam_role.resources_rw.arn
-  handler       = "csv-upload.handler"
+  handler       = "csv_upload.handler"
   publish       = true
   source_code_hash = data.archive_file.csv_upload_source.output_base64sha256
 

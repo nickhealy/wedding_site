@@ -9,7 +9,22 @@ data "archive_file" "edge_source" {
 
   source {
     content = file("./static/handlebars.min-v4.7.8.js")
+    filename = "./handlebars.min-v4.7.8.js"
+  }
+
+  source {
+    content = file("./handlebars.js")
     filename = "handlebars.js"
+  }
+
+  source {
+    content = file("./static/main-wip.html")
+    filename = "main.handlebars.html"
+  }
+
+  source {
+    content  = file("./csv.js")
+    filename = "./csv.js"
   }
 }
 

@@ -25,14 +25,6 @@ resource "aws_s3_bucket_versioning" "rsvps" {
   }
 }
 
-resource "aws_s3_bucket_object" "guest_list" {
-  bucket       = aws_s3_bucket.wedding_site_resources.id
-  key          = "guest_list.json"
-  source       = "guest_list.json"
-  etag         = filemd5("guest_list.json") // we want re deploy when this updates
-  content_type = "application/json"
-}
-
 data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
     effect = "Allow"
@@ -87,19 +79,33 @@ data "archive_file" "login_source" {
   }
 
   source {
-    content  = file("./sessionCache.js")
-    filename = "sessionCache.js"
+    content  = file("./db.js")
+    filename = "./db.js"
   }
-  source {
-    content  = file("./csv.js")
-    filename = "csv.js"
+}
+
+resource "aws_iam_role" "login" {
+  name               = "login"
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
+  inline_policy {
+    name   = "read-write-sessions-policy"
+    policy = data.aws_iam_policy_document.sessions_rw.json
   }
+  inline_policy {
+    name   = "write-guestlist-policy"
+    policy = data.aws_iam_policy_document.guest_list_r.json
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "login_cloudwatch_role" {
+  role       = aws_iam_role.login.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 resource "aws_lambda_function" "login_lambda" {
   filename      = "login.zip"
   function_name = "login"
-  role          = aws_iam_role.resources_rw.arn
+  role          = aws_iam_role.login.arn
   handler       = "login.handler"
 
   source_code_hash = data.archive_file.login_source.output_base64sha256
@@ -108,8 +114,9 @@ resource "aws_lambda_function" "login_lambda" {
 
   environment {
     variables = {
-      SITE_PASSWORD    = var.site_password
-      RESOURCES_BUCKET = var.resources_bucket_name
+      SITE_PASSWORD       = var.site_password
+      SESSIONS_TABLE_NAME = aws_dynamodb_table.sessions.name
+      GUEST_LIST_TABLE_NAME = aws_dynamodb_table.guest_data.name
     }
   }
 }
