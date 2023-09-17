@@ -82,6 +82,11 @@ data "archive_file" "login_source" {
     content  = file("./db.js")
     filename = "./db.js"
   }
+
+  source {
+    content  = file("./csv.js")
+    filename = "./csv.js"
+  }
 }
 
 resource "aws_iam_role" "login" {

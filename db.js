@@ -2,8 +2,8 @@ const { DynamoDBClient, QueryCommand, BatchWriteItemCommand, GetItemCommand, Put
 const { parseCsv } = require('./csv')
 
 const region = process.env.AWS_REGION;
-const sessionsTableName = process.env.SESSIONS_TABLE_NAME;
-const guestListTableName = process.env.GUEST_LIST_TABLE_NAME;
+const sessionsTableName = process.env.SESSIONS_TABLE_NAME || 'sessions';
+const guestListTableName = process.env.GUEST_LIST_TABLE_NAME || 'guest-data';
 
 const dynamoDB = new DynamoDBClient({ region });
 const MAX_RETRIES = 5
@@ -31,6 +31,54 @@ const checkForValidSession = async (id, sessionId, defaultValue = null) => {
 		return defaultValue;
 	}
 };
+
+const getGuestDataForId = async (id, defaultValue = null) => {
+	try {
+		console.log(`getting guest data for id ${id}`);
+		const getItemCommand = new GetItemCommand({
+			TableName: guestListTableName,
+			Key: {
+				"id": { N: id },
+			},
+		});
+		const { Item } = await dynamoDB.send(getItemCommand);
+		console.log({ Item })
+
+		if (!Item) {
+			return defaultValue
+		}
+
+		// we can easily add the specific rsvps here if we would like
+		return {
+			ceremony: Item.ceremony?.BOOL || false,
+			reception: Item.reception?.BOOL || false,
+			welcome_dinner: Item.welcome_dinner?.BOOL || false,
+			pool_party: Item.pool_party?.BOOL || false,
+			plus_ones: Item.plus_ones?.S || '',
+			rsvpd: _hasRsvpd(Item)
+		}
+	} catch (e) {
+		console.error("Error getting session data from DynamoDB:", e);
+		return defaultValue;
+	}
+};
+
+const _hasRsvpd = (dbItem) => {
+	// get whether the user has rsvp'd or not
+	const ceremonyRsvp = dbItem?.ceremony_rsvp?.BOOL
+	const receptionRsvp = dbItem?.reception_rsvp?.BOOL
+	const welcomeDinnerRsvp = dbItem?.welcome_dinner_rsvp?.BOOL
+	const poolPartyRsvp = dbItem?.pool_party_rsvp?.BOOL
+
+	const hasRsvpd = 
+		ceremonyRsvp !== undefined ||
+		receptionRsvp !== undefined ||
+		welcomeDinnerRsvp !== undefined ||
+		poolPartyRsvp !== undefined
+
+	return hasRsvpd
+}
+
 
 const setSessionId = async (id, sessionId) => {
 	console.log("updating session for user ", id);
@@ -65,7 +113,7 @@ const getGuestInfo = async (email, defaultVal = null) => {
 		return {
 			email: item?.email?.S || null,
 			id: item?.id?.N || null,
-			rsvpd: item?.rsvpd?.BOOL || null,
+			rsvpd: _hasRsvpd(item),
 		}
 	} catch (error) {
 		console.error("Error querying GSI:", error);
@@ -121,6 +169,8 @@ const batchPutReducer = (acc, {
 	plus_ones,
 	welcome_dinner,
 	ceremony,
+	pool_party,
+	reception,
 	rsvp_sent,
 	mailing_address,
 	welcome_dinner_rsvp,
@@ -154,6 +204,12 @@ const batchPutReducer = (acc, {
 					ceremony: {
 						BOOL: ceremony
 					},
+					reception: {
+						BOOL: reception
+					},
+					pool_party: {
+						BOOL: pool_party
+					},
 					rsvp_sent: {
 						BOOL: rsvp_sent
 					},
@@ -186,5 +242,6 @@ module.exports = {
 	checkForValidSession,
 	setSessionId,
 	getGuestInfo,
-	saveGuestData
+	saveGuestData,
+	getGuestDataForId
 };

@@ -1,11 +1,6 @@
-const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { compile } = require("./handlebars");
-const { parseCsv } = require("./csv");
+const { checkForValidSession, getGuestDataForId } = require("./db");
 
-const s3Client = new S3Client({ region: "eu-west-2" });
-const RESOURCES_BUCKET = "nickbelle-site-resources";
-const SESSIONS_KEY = "sessions.json";
-const GUEST_LIST_KEY = "guest_list.csv";
 const MAIN_TEMPATE = "main.handlebars.html";
 
 exports.handler = async (event) => {
@@ -27,7 +22,7 @@ exports.handler = async (event) => {
                 const userId = getUserIdFromCookie(userIdCookie.value);
                 const sessionId = getSessionIdFromCookie(sessionIdCookie.value);
 
-                if (await isValidSession(userId, sessionId)) {
+                if (await checkForValidSession(userId, sessionId)) {
                     const guestData = await getGuestData(userId);
                     response = {
                         status: "200",
@@ -55,7 +50,18 @@ exports.handler = async (event) => {
         }
     } catch (error) {
         console.error("Error:", error);
-        throw error;
+        return {
+            status: "302",
+            statusDescription: "Found",
+            headers: {
+                location: [
+                    {
+                        key: "location",
+                        value: "/error.html",
+                    },
+                ],
+            },
+        };
     }
     return {
         status: "302",
@@ -85,53 +91,13 @@ function getSessionIdFromCookie(cookieValue) {
     return sessionIdMatch ? sessionIdMatch[1] : null;
 }
 
-async function isValidSession(userId, sessionId) {
-    try {
-        // Fetch the JSON object from S3
-        const getObjectParams = {
-            Bucket: RESOURCES_BUCKET,
-            Key: SESSIONS_KEY,
-        };
 
-        console.log("checking user's sessions");
-        const s3Object = await s3Client.send(
-            new GetObjectCommand(getObjectParams)
-        );
-
-        const jsonObject = JSON.parse(await s3Object.Body.transformToString());
-        // Check if the user_id exists in the JSON object
-        if (jsonObject[userId] && jsonObject[userId] === sessionId) {
-            console.log("user has valid session");
-            return true;
-        }
-        console.log("user does not have valid session");
-        return false;
-    } catch (error) {
-        console.error("Error fetching sessions:", error);
-    }
-
-    return false;
-}
-
-const isTrue = (val) => val === 'true'
-const getGuestData = async (userId) => {
-    // Read email-permission mappings from S3
-    const getObjectCommand = new GetObjectCommand({
-        Bucket: RESOURCES_BUCKET,
-        Key: GUEST_LIST_KEY,
-    });
-
-    console.log("getting guest data for userId ", userId);
-    const data = await s3Client.send(getObjectCommand);
-    const guestsRaw = await data.Body.transformToString();
-    const parsedGuestsRaw = parseCsv(guestsRaw);
-    const guestData = parsedGuestsRaw.find(
-        ({ ID: id }) => id.toString() === userId.toString()
-    );
+const getGuestData = async (id) => {
+    const guestData = await getGuestDataForId(id)
 
     // Check if the user_id exists in the JSON object
     if (!guestData) {
-        throw new Error("could not find guest data");
+        throw new Error(`no guest data found for id ${id}`);
     }
 
     const templateData = {
@@ -139,35 +105,33 @@ const getGuestData = async (userId) => {
         events: [],
     };
 
-    if (isTrue(guestData["RSVP'd"])) {
+    if (guestData.rsvpd) {
         templateData.has_rsvp = true;
     }
 
-    if (isTrue(guestData["Reception"])) {
+    if (guestData.reception) {
         templateData.events.push("reception");
     }
 
-    if (isTrue(guestData["Ceremony"])) {
+    if (guestData.ceremony) {
         templateData.events.push("ceremony");
     }
 
-    if (isTrue(guestData["Welcome Dinner"])) {
+    if (guestData.welcome_dinner) {
         templateData.other_events = true;
         templateData.events.push("welcome dinner");
     }
 
-    if (isTrue(guestData["Pool Party"])) {
+    if (guestData.pool_party) {
         templateData.other_events = true;
         templateData.events.push("pool party");
     }
 
-    for (const plusOneId of guestData["Plus Ones"]) {
-        const plusOneData = parsedGuestsRaw.find(
-            ({ ID: id }) => id.toString() === plusOneId.toString()
-        );
-
-        templateData.invites.push(plusOneData.Name);
-    }
+    // get the plus one data here
+    // for (const plusOneId of guestData.plus_ones) {
+    //     const {name} = await getGuestInfo
+    //     templateData.invites.push(plusOneData.Name);
+    // }
     console.log({ guestData });
 
     return templateData;

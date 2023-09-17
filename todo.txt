@@ -4,14 +4,11 @@
 - invalidating cloudfront cache
 - figure out why site wasn't working in Korea
 ### necessary
-- store as csv
+- be able to find a guest by their id (for the edge lambda to populate with rsvp data)
 - see if you can make the login image bigger on mobile
 - make thank you bigger (fuck around with cropping container for images)
 -make the big day take up full viewport on mobile
-- lambda for generating page
 - navigating on page
-- implement backups for rsvp
-- investigate storing as a csv
 
 
 what do you name terraform resources?
