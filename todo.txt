@@ -1,8 +1,6 @@
 ### wish list
 - make api auto deploy via terraform
-- error page
-- invalidating cloudfront cache
-- figure out why site wasn't working in Korea
+- maybe turn off cache for main page?
 ### necessary
 - be able to find a guest by their id (for the edge lambda to populate with rsvp data)
 - see if you can make the login image bigger on mobile
