@@ -1,35 +1,80 @@
-const parseCsv =(csvData) => {
-    // Split the CSV data into rows, considering both '\r\n' and '\n' line endings.
+// const fs = require('fs');
+// const readline = require('readline');
+
+const headerMapping = {
+    'ID': 'id',
+    'Name': 'name',
+    'Email': 'email',
+    'Plus Ones': 'plus_ones',
+    'Rank': 'rank',
+    'Welcome Dinner': 'welcome_dinner',
+    'Ceremony': 'ceremony',
+    'Reception': 'reception',
+    'Pool Party': 'pool_party',
+    'Inviter': 'inviter',
+    'RSVP Sent': 'rsvp_sent',
+    'Mailing Address': 'mailing_address',
+    'Welcome Dinner RSVP': 'welcome_dinner_rsvp',
+    'Ceremony RSVP': 'ceremony_rsvp',
+    'Reception RSVP': 'reception_rsvp',
+    'Pool Party RSVP': 'pool_party_rsvp',
+    'Dietary restrictions': 'dietary_restrictions',
+};
+
+const convertBoolean = (value) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
+};
+
+const parseCsv = (csvData) => {
+    console.log(csvData)
     const rows = csvData.split(/\r?\n/);
-
-    // Get the column headers from the first row and remove any trailing '\r'.
     const headers = rows[0].replace(/\r$/, '').split(',');
-
-    // Initialize an empty array to store the parsed data.
     const data = [];
 
-    // Define a function to convert "TRUE" and "FALSE" to true and false, respectively.
-    function convertBoolean(value) {
-        if (value === 'TRUE') return true;
-        if (value === 'FALSE') return false;
-        return value; // If it's not "TRUE" or "FALSE", return as is.
-    }
-
-    // Iterate over the rows (excluding the header row) and create objects.
     for (let i = 1; i < rows.length; i++) {
         const columns = rows[i].replace(/\r$/, '').split(',');
         const rowData = {};
 
-        // Iterate over the columns and create key-value pairs.
         for (let j = 0; j < headers.length; j++) {
-            rowData[headers[j]] = convertBoolean(columns[j]);
+            const header = headerMapping[headers[j]] 
+            if (!header) {
+                throw new Error(`Unrecognized header ${headers[j]}`)
+            }
+            rowData[header] = convertBoolean(columns[j]);
         }
 
         data.push(rowData);
     }
 
-    return data
-}
+    return data;
+};
+
+// const processCSVFile = (filePath) => {
+//     if (!filePath) {
+//         console.error('Please provide the path to the CSV file as a command-line argument.');
+//     } else {
+//         processCSVFile(filePath);
+//     }
+//
+//     const fileStream = fs.createReadStream(filePath);
+//     const rl = readline.createInterface({
+//         input: fileStream,
+//         crlfDelay: Infinity,
+//     });
+//
+//     let csvData = '';
+//
+//     rl.on('line', (line) => {
+//         csvData += line + '\n';
+//     });
+//
+//     rl.on('close', () => {
+//         const parsedData = parseCsv(csvData);
+//         console.log(parsedData);
+//     });
+// };
 
 module.exports = {
     parseCsv

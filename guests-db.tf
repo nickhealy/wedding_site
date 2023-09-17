@@ -45,3 +45,22 @@ data "aws_iam_policy_document" "guest_list_r" {
     ]
   }
 }
+data "aws_iam_policy_document" "guest_list_w" {
+  statement {
+    actions = [
+      "dynamodb:BatchGetItem",
+      "dynamodb:BatchWriteItem",
+      "dynamodb:ConditionCheckItem",
+      "dynamodb:PutItem",
+      "dynamodb:DescribeTable",
+      "dynamodb:DeleteItem",
+      "dynamodb:GetItem",
+      "dynamodb:Query",
+      "dynamodb:UpdateItem"
+    ]
+
+    resources = [
+      aws_dynamodb_table.guest_data.arn
+    ]
+  }
+}

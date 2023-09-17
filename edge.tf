@@ -23,8 +23,8 @@ data "archive_file" "edge_source" {
   }
 
   source {
-    content  = file("./csv.js")
-    filename = "./csv.js"
+    content = file("./db.js")
+    filename = "handlebars.js"
   }
 }
 
