@@ -8,6 +8,7 @@ section {
 	justify-content: center;
 	align-items: center;
 	margin: 0 !important;
+	overflow-x: hidden;
 }
 
 #hero {
@@ -125,16 +126,25 @@ header {
 	background-color: var(--primary-white);
 	color: var(--primary-black);
 	display: flex;
-	padding: 15px;
+	padding-left: 15px;
 	align-items: center;
 	justify-content: space-between;
 	z-index: 10;
-	max-height: 80px;
+	height: 80px;
 }
 
-header img {
-	max-width: 75%;
-	max-height: 80px;
+/* header img { */
+/* 	max-width: 75%; */
+/* 	max-height: 80px; */
+/* } */
+
+header > div {
+	height: 100%;
+	width: 300px;
+	background-image: url("./assets/images/nickannabellePNG2.png");
+	background-repeat: no-repeat;
+	
+	background-size: contain;
 }
 
 .card-header {
@@ -150,6 +160,9 @@ img.white {
 
 #hamburger {
 	display: flex;
+	position: fixed;
+	top: 15px;
+	right: 15px;
 	flex-direction: column;
 	cursor: pointer;
 	padding: 10px;
@@ -166,6 +179,7 @@ img.white {
 		opacity 0.4s,
 		background-color 0.4s;
 }
+
 #hamburger.close div {
 	background-color: var(--primary-white);
 }
@@ -212,14 +226,15 @@ img.white {
 	row-gap: 25px;
 }
 
-#photo {
-	height: 100vh;
-	width: 100vw;
+#photo-cont {
+	height: 100%;
+	width: 100%;
 	background-image: url("assets/images/nickbelle.png");
 	background-size: cover;
 	background-position: center center;
 	filter: saturate(0%) hue-rotate(0deg) brightness(82%) opacity(100%)
 		blur(0px);
+	overflow: hidden;
 }
 
 #photo-cont > img {

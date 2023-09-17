@@ -1,7 +1,7 @@
 const API_BASE_URL = "https://api.nickandannabellegetmarried.com";
 // header/scrolling behavior
 const header = document.getElementById("header");
-const headerText = header.querySelector("img");
+const headerText = header.querySelector("div");
 const hero = document.querySelector("#hero");
 
 const heroOptions = {

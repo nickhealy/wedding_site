@@ -1,162 +1,138 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap"
-			rel="stylesheet"
-		/>
-		<link rel="stylesheet" href="main.index.css" />
-		<link
-			rel="icon"
-			type="image/x-icon"
-			href="assets/images/nickannabellePNG2.png"
-		/>
-		<script
-			src="https://kit.fontawesome.com/12f6611ba5.js"
-			crossorigin="anonymous"
-		></script>
-		<title>Nick and Annabelle wedding site</title>
-	</head>
 
-	<body>
-		<header id="header">
-			<img class="hidden" src="assets/images/nickannabellePNG2.png" />
-			<div id="hamburger">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-		</header>
-		<div id="menu" class="closed"></div>
-		<section class="main menu-target" id="hero" data-section-id="home">
-			<img src="assets/images/Nickannabelle3.png" />
-		</section>
-		<section
-			id="main-events"
-			class="menu-target dark-bg"
-			data-section-id="the big day"
-		>
-			<div class="crop-container">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="main.index.css" />
+	<link rel="icon" type="image/x-icon" href="assets/images/nickannabellePNG2.png" />
+	<script src="https://kit.fontawesome.com/12f6611ba5.js" crossorigin="anonymous"></script>
+	<title>Nick and Annabelle wedding site</title>
+</head>
+
+<body>
+	<div id="hamburger">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<header id="header">
+		<div />
+	</header>
+	<div id="menu" class="closed"></div>
+	<section class="main" id="hero" data-section-id="home">
+		<img src="assets/images/Nickannabelle3.png" />
+	</section>
+	<section id="main-events" class="dark-bg">
+		<div class="crop-container">
 			<!-- 	<!-- <img src="assets/images/house.jpg" /> -->
-			</div>
-			<div class="event-container">
-				<img
-					class="white card-header"
-					src="assets/images/the-big-day.png"
-				/>
+		</div>
+		<div class="event-container menu-target" id="big-day-target" data-section-id="the big day">
+			<img class="white card-header" src="assets/images/the-big-day.png" />
 
-				{{#contains "ceremony" events }}
-				<div class="event">
-					<h3>the ceremony</h3>
-					<hr />
-					<h4>June 08, 2024</h4>
-					<h4>3 PM</h4>
-					<br />
-					<h5>
-						Marie d'Aix-en-Provence<br />Place de l'Hôtel de Ville<br />
-					</h5>
-				</div>
-				{{/contains}} {{#contains "reception" events }}
-				<div class="event">
-					<h3>The Reception</h3>
-					<hr />
-					<h4>June 08, 2024</h4>
-					<h4>6 PM</h4>
-					<br />
-					<h5>
-						1230 Chemin de Repentance<br />Aix-en-Provence
-					</h5>
-				</div>
-				{{/contains}}
-			</div>
-		</section>
-		{{#if other_events}}
-		<section
-			id="other-events"
-			class="menu-target"
-			data-section-id="other events"
-		>
-			<img class="card-header" src="assets/images/please-join-us.png" />
-			{{#contains "welcome dinner" events }}
+			{{#contains "ceremony" events }}
 			<div class="event">
-				<h3>welcome dinner</h3>
+				<h3>the ceremony</h3>
 				<hr />
-				<h4>June 07, 2024</h4>
+				<h4>June 08, 2024</h4>
+				<h4>3 PM</h4>
 				<br />
-				<h5>More details to come</h5>
+				<h5>
+					Marie d'Aix-en-Provence<br />Place de l'Hôtel de Ville<br />
+				</h5>
 			</div>
-			{{/contains}} {{#contains "pool party" events }}
+			{{/contains}} {{#contains "reception" events }}
 			<div class="event">
-				<h3>pool party</h3>
+				<h3>The Reception</h3>
 				<hr />
-				<h4>June 09, 2024</h4>
+				<h4>June 08, 2024</h4>
+				<h4>6 PM</h4>
 				<br />
-				<h5>More details to come</h5>
+				<h5>
+					1230 Chemin de Repentance<br />Aix-en-Provence
+				</h5>
 			</div>
 			{{/contains}}
-		</section>
-		{{/if}}
-		<section
-			id="travel-tips"
-			data-section-id="details"
-			class="menu-target"
-		>
-			<img class="card-header" src="assets/images/details.png" />
-			<div class="event">
-				<h3>how to get here</h3>
-				<hr />
-				<h5>More details to come</h5>
-			</div>
-			<div class="event">
-				<h3>where to stay</h3>
-				<hr />
-				<h5>More details to come</h5>
-			</div>
-		</section>
-		<div id="photo-cont" style="position: relative">
-			<section id="photo"></section>
-			<img class="card-header white" src="assets/images/thank-you.png" />
 		</div>
-		<!-- <section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg"> -->
-		<!-- 	<img class="card-header white" src="assets/images/rsvp.png" /> -->
-		<!-- 	{{#if has_rsvp}} -->
-		<!-- 	<div id="success"> -->
-		<!-- 		<h4>Thanks for your response! <br />Please email us at nickbellewedding2024@gmail.com to make any changes</h4> -->
-		<!-- 	</div> -->
-		<!-- 	{{else}} -->
-		<!-- 	<form class="rsvp-card light-bg"> -->
-		<!-- 		{{#each invites}} -->
-		<!-- 		<div class="guest-form"> -->
-		<!-- 			<h4 data-guest-id="{{id}}">{{name}}</h4> -->
-		<!-- 			{{#each ../events}} -->
-		<!-- 			<h5 data-event-id={{this}}>{{this}}</h5> -->
-		<!-- 			<div class="select-wrap event"> -->
-		<!-- 				<select required name="response"> -->
-		<!-- 					<option value>Will you be joining us?</option> -->
-		<!-- 					<option value="1">Yes</option> -->
-		<!-- 					<option value="0">No</option> -->
-		<!-- 				</select> -->
-		<!-- 				<i class="fa-solid fa-chevron-down"></i> -->
-		<!-- 			</div> -->
-		<!-- 			{{/each}} -->
-		<!-- 			<textarea -->
-		<!-- 				name="{{name}}-dietary" -->
-		<!-- 				placeholder="Please list any dietary restrictions" -->
-		<!-- 			></textarea> -->
-		<!-- 		</div> -->
-		<!-- 		{{/each}} -->
-		<!-- 		<button id="submit" type="submit" value="Submit" name="submit"> -->
-		<!-- 			Submit -->
-		<!-- 		</button> -->
-		<!-- 		<div id="error-message" class="error empty"></div> -->
-		<!-- 	</form> -->
-		<!-- 	{{/if}} -->
-		<!-- </section> -->
-		<footer>Homemade with love by Nick</footer>
-	</body>
-	<script src="main.js"></script>
+	</section>
+	{{#if other_events}}
+	<section id="other-events" class="menu-target" data-section-id="other events">
+		<img class="card-header" src="assets/images/please-join-us.png" />
+		{{#contains "welcome dinner" events }}
+		<div class="event">
+			<h3>welcome dinner</h3>
+			<hr />
+			<h4>June 07, 2024</h4>
+			<br />
+			<h5>More details to come</h5>
+		</div>
+		{{/contains}} {{#contains "pool party" events }}
+		<div class="event">
+			<h3>pool party</h3>
+			<hr />
+			<h4>June 09, 2024</h4>
+			<br />
+			<h5>More details to come</h5>
+		</div>
+		{{/contains}}
+	</section>
+	{{/if}}
+	<section id="travel-tips" data-section-id="details" class="menu-target">
+		<img class="card-header" src="assets/images/details.png" />
+		<div class="event">
+			<h3>how to get here</h3>
+			<hr />
+			<h5>More details to come</h5>
+		</div>
+		<div class="event">
+			<h3>where to stay</h3>
+			<hr />
+			<h5>More details to come</h5>
+		</div>
+	</section>
+	<section id="photo-cont" style="position: relative">
+		<img class="card-header white" src="assets/images/thank-you.png" />
+	</section>
+	<!-- <section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg"> -->
+	<!-- 	<img class="card-header white" src="assets/images/rsvp.png" /> -->
+	<!-- 	{{#if has_rsvp}} -->
+	<!-- 	<div id="success"> -->
+	<!-- 		<h4>Thanks for your response! <br />Please email us at nickbellewedding2024@gmail.com to make any changes</h4> -->
+	<!-- 	</div> -->
+	<!-- 	{{else}} -->
+	<!-- 	<form class="rsvp-card light-bg"> -->
+	<!-- 		{{#each invites}} -->
+	<!-- 		<div class="guest-form"> -->
+	<!-- 			<h4 data-guest-id="{{id}}">{{name}}</h4> -->
+	<!-- 			{{#each ../events}} -->
+	<!-- 			<h5 data-event-id={{this}}>{{this}}</h5> -->
+	<!-- 			<div class="select-wrap event"> -->
+	<!-- 				<select required name="response"> -->
+	<!-- 					<option value>Will you be joining us?</option> -->
+	<!-- 					<option value="1">Yes</option> -->
+	<!-- 					<option value="0">No</option> -->
+	<!-- 				</select> -->
+	<!-- 				<i class="fa-solid fa-chevron-down"></i> -->
+	<!-- 			</div> -->
+	<!-- 			{{/each}} -->
+	<!-- 			<textarea -->
+	<!-- 				name="{{name}}-dietary" -->
+	<!-- 				placeholder="Please list any dietary restrictions" -->
+	<!-- 			></textarea> -->
+	<!-- 		</div> -->
+	<!-- 		{{/each}} -->
+	<!-- 		<button id="submit" type="submit" value="Submit" name="submit"> -->
+	<!-- 			Submit -->
+	<!-- 		</button> -->
+	<!-- 		<div id="error-message" class="error empty"></div> -->
+	<!-- 	</form> -->
+	<!-- 	{{/if}} -->
+	<!-- </section> -->
+	<footer>Homemade with love by Nick</footer>
+</body>
+<script src="main.js"></script>
+
 </html>

@@ -2,11 +2,8 @@
 - make api auto deploy via terraform
 - maybe turn off cache for main page?
 ### necessary
-- be able to find a guest by their id (for the edge lambda to populate with rsvp data)
 - see if you can make the login image bigger on mobile
 - make thank you bigger (fuck around with cropping container for images)
--make the big day take up full viewport on mobile
-- navigating on page
 
 
 what do you name terraform resources?
