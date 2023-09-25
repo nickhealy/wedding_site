@@ -18,7 +18,7 @@ data "archive_file" "edge_source" {
   }
 
   source {
-    content = file("./static/main-wip.html")
+    content = file("./static/main.handlebars.html")
     filename = "main.handlebars.html"
   }
 

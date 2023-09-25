@@ -5,7 +5,7 @@ const headerMapping = {
     'ID': 'id',
     'Name': 'name',
     'Email': 'email',
-    'Plus Ones': 'plus_ones',
+    'Primary Guest Id': 'primary_guest_id',
     'Rank': 'rank',
     'Welcome Dinner': 'welcome_dinner',
     'Ceremony': 'ceremony',

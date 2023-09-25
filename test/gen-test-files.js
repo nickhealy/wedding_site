@@ -7,7 +7,7 @@ const inputDirectory = 'test-data';
 const outputDirectory = '../static';
 
 // Read the main handlebars template
-const templatePath = path.join(__dirname, '..', 'static', 'main-wip.html');
+const templatePath = path.join(__dirname, '..', 'static', 'main.handlebars.html');
 const templateSource = fs.readFileSync(templatePath, 'utf8');
 const template = handlebars.compile(templateSource);
 

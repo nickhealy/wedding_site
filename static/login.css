@@ -1,11 +1,12 @@
 .login-container {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	height: 100%;
 	width: 75%;
-	margin: 50px auto;
+	margin: auto;
+	/* margin: 50px auto; */
 	max-width: 700px;
 	overflow-x: hidden;
 }

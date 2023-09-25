@@ -3,7 +3,8 @@ body {
 }
 section {
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
+	padding: 80px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -25,6 +26,9 @@ section {
 	}
 }
 
+#main-events {
+	padding: 0;
+}
 #main-events > div {
 	width: 50%;
 	height: 100vh;
@@ -34,6 +38,13 @@ section {
 	background-position: bottom 10% right 40%;
 	background-size: cover;
 }
+
+h5 a {
+	font-style: italic;
+	text-decoration: underline;
+}
+
+
 
 @media (max-width: 677px) {
 	#main-events {
@@ -106,7 +117,7 @@ section {
 }
 
 .event h4 {
-	font-weight: bold
+	font-weight: bold;
 }
 .event h5{
 	font-weight: 200;
@@ -232,8 +243,8 @@ img.white {
 	background-image: url("assets/images/nickbelle.png");
 	background-size: cover;
 	background-position: center center;
-	filter: saturate(0%) hue-rotate(0deg) brightness(82%) opacity(100%)
-		blur(0px);
+	/* filter: saturate(0%) hue-rotate(0deg) brightness(82%) opacity(100%) */
+		/* blur(0px); */
 	overflow: hidden;
 }
 
@@ -246,6 +257,15 @@ img.white {
 	bottom: 10px;
 	right: 10px;
 	/* background: rgba(0, 0, 0, 0.5); */
+}
+
+#photo-cont > h5 {
+	position: absolute;
+	color: var(--primary-white);
+	bottom: 30px;
+	font-size: 1.25rem;
+	align-items: center;
+
 }
 
 @media (max-width: 1000px) {

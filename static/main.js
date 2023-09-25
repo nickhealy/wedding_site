@@ -87,65 +87,65 @@ const clearError = (el) => {
   el.textContent = "";
   el.classList.add("add");
 };
-const rsvpForm = document.getElementById("rsvp");
-const forms = Array.from(document.querySelectorAll(".guest-form"));
-const submitBtn = document.getElementById("submit");
-rsvpForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  // get form data
-  const formData = forms.reduce((acc, curr) => {
-    const guestId = curr.querySelector("h4").dataset.guestId;
-    const events = Array.from(curr.querySelectorAll("h5"));
-    const rsvps = Array.from(curr.querySelectorAll("select")).map((sel) => {
-      return sel.value === "1" ? true : false;
-    });
-    const evWithRsvp = events.map((event, idx) => ({
-      event: event.dataset.eventId,
-      rsvp: rsvps[idx],
-    }));
-    const dietaryRestrictions = curr.querySelector("textarea").value || "";
-
-    return [
-      ...acc,
-      {
-        id: Number(guestId), // hack because this is what lambda is expected
-        events: evWithRsvp,
-        dietary_restrictions: dietaryRestrictions,
-      },
-    ];
-  }, []);
-
-  showSpinner(submitBtn);
-  // make rsvp request
-  const response = await fetch(`${API_BASE_URL}/rsvp`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
-  if (response.status === 200) {
-    // successful rsvp
-    console.log("rsvp successfull");
-    showSuccessMessage(document.querySelector('.rsvp-card'))
-    return;
-  } else if (response.status === 400) {
-    setError(errorMessage, "Invalid Request");
-    removeSpinner(loginButton);
-  } else if (response.status === 500) {
-    setError(errorMessage, "Something went wrong on our end");
-    removeSpinner(loginButton);
-  }
-});
-
-const showSuccessMessage = (container) => {
-  debugger
-  container.innerHTML = `
-    <div id="success"> 
-        <h4>
-            Response recorded! We are looking forward to seeing you :) 
-        </h4>
-    </div>
-`;
-};
+// const rsvpForm = document.getElementById("rsvp");
+// const forms = Array.from(document.querySelectorAll(".guest-form"));
+// const submitBtn = document.getElementById("submit");
+// rsvpForm.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+//   // get form data
+//   const formData = forms.reduce((acc, curr) => {
+//     const guestId = curr.querySelector("h4").dataset.guestId;
+//     const events = Array.from(curr.querySelectorAll("h5"));
+//     const rsvps = Array.from(curr.querySelectorAll("select")).map((sel) => {
+//       return sel.value === "1" ? true : false;
+//     });
+//     const evWithRsvp = events.map((event, idx) => ({
+//       event: event.dataset.eventId,
+//       rsvp: rsvps[idx],
+//     }));
+//     const dietaryRestrictions = curr.querySelector("textarea").value || "";
+//
+//     return [
+//       ...acc,
+//       {
+//         id: Number(guestId), // hack because this is what lambda is expected
+//         events: evWithRsvp,
+//         dietary_restrictions: dietaryRestrictions,
+//       },
+//     ];
+//   }, []);
+//
+//   showSpinner(submitBtn);
+//   // make rsvp request
+//   const response = await fetch(`${API_BASE_URL}/rsvp`, {
+//     method: "POST",
+//     credentials: "include",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(formData),
+//   });
+//   if (response.status === 200) {
+//     // successful rsvp
+//     console.log("rsvp successfull");
+//     showSuccessMessage(document.querySelector('.rsvp-card'))
+//     return;
+//   } else if (response.status === 400) {
+//     setError(errorMessage, "Invalid Request");
+//     removeSpinner(loginButton);
+//   } else if (response.status === 500) {
+//     setError(errorMessage, "Something went wrong on our end");
+//     removeSpinner(loginButton);
+//   }
+// });
+//
+// const showSuccessMessage = (container) => {
+//   debugger
+//   container.innerHTML = `
+//     <div id="success"> 
+//         <h4>
+//             Response recorded! We are looking forward to seeing you :) 
+//         </h4>
+//     </div>
+// `;
+// };

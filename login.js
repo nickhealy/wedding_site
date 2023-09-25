@@ -39,7 +39,7 @@ exports.handler = async (event) => {
 	}
 
 	try {
-		const { email: emailFromDb, rsvpd, id } = await getGuestInfo(email)
+		const { email: emailFromDb, rsvpd, id } = await getGuestInfo(email.toLowerCase())
 
 		if (!emailFromDb) {
 			return {

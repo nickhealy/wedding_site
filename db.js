@@ -1,7 +1,7 @@
 const { DynamoDBClient, QueryCommand, BatchWriteItemCommand, GetItemCommand, PutItemCommand } = require("@aws-sdk/client-dynamodb");
 const { parseCsv } = require('./csv')
 
-const region = process.env.AWS_REGION;
+const region = 'eu-west-2';
 const sessionsTableName = process.env.SESSIONS_TABLE_NAME || 'sessions';
 const guestListTableName = process.env.GUEST_LIST_TABLE_NAME || 'guest-data';
 
@@ -190,7 +190,7 @@ const batchPutReducer = (acc, {
 						S: name
 					},
 					email: {
-						S: email || ''
+						S: email.toLowerCase() || '' // just some data normalization
 					},
 					inviter: {
 						S: inviter || ''

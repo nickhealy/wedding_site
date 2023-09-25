@@ -31,7 +31,7 @@ exports.handler = async (event) => {
                             "cache-control": [
                                 {
                                     key: "Cache-Control",
-                                    value: "max-age=100",
+                                    value: "max-age=0",
                                 },
                             ],
                             "content-type": [
@@ -58,6 +58,12 @@ exports.handler = async (event) => {
                     {
                         key: "location",
                         value: "/error.html",
+                    },
+                ],
+                "content-type": [
+                    {
+                        key: "Content-Type",
+                        value: "text/html",
                     },
                 ],
             },
@@ -94,6 +100,8 @@ function getSessionIdFromCookie(cookieValue) {
 
 const getGuestData = async (id) => {
     const guestData = await getGuestDataForId(id)
+
+    // need function that looks for the inviter id of a person -- maybe add a GSI for that?
 
     // Check if the user_id exists in the JSON object
     if (!guestData) {

@@ -1,189 +1,166 @@
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="main.index.css" />
-		<link
-			rel="icon"
-			type="image/x-icon"
-			href="assets/images/nickannabellePNG1.png"
-		/>
-		<script
-			src="https://kit.fontawesome.com/12f6611ba5.js"
-			crossorigin="anonymous"
-		></script>
-		<title>Nick and Annabelle wedding site</title>
-	</head>
 
-	<body>
-		<div id="hamburger">
-			<div></div>
-			<div></div>
-			<div></div>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="main.index.css" />
+	<link rel="icon" type="image/x-icon" href="assets/images/nickannabellePNG2.png" />
+	<script src="https://kit.fontawesome.com/12f6611ba5.js" crossorigin="anonymous"></script>
+	<title>Nick and Annabelle wedding site</title>
+</head>
+
+<body>
+	<div id="hamburger">
+		<div></div>
+		<div></div>
+		<div></div>
+	</div>
+	<header id="header">
+		<div />
+	</header>
+	<div id="menu" class="closed"></div>
+	<section class="main" id="hero" data-section-id="home">
+		<img src="assets/images/Nickannabelle3.png" />
+	</section>
+	<section id="main-events" class="dark-bg">
+		<div class="crop-container">
 		</div>
-		<header id="header">
-			<img class="hidden" src="assets/images/nickannabellePNG1.png" />
-		</header>
-		<div id="menu" class="closed"></div>
-		<section class="main menu-target" id="hero" data-section-id="home">
-			<img src="assets/images/nickannabellePNG1.png" />
-		</section>
-		<section
-			id="main-events"
-			class="menu-target dark-bg"
-			data-section-id="wedding"
-		>
-			<h2>the wedding</h2>
-			{{#if events.courthouse}}
-				<div class="event">
-					<h3>the courthouse</h3>
-					<hr />
-					<h4>08 June 2024</h4>
-					<h5>event time</h5>
-					<h5>
-						Address line 1<br />Address line2<br />
-						Address line 3
-					</h5>
-				</div>
-			{{/if}}
+		<div class="event-container menu-target" id="big-day-target" data-section-id="the big day">
+			<img class="white card-header" src="assets/images/the-big-day.png" />
+
+			{{#contains "ceremony" events }}
 			<div class="event">
-				<h3>the after party</h3>
+				<h3>the ceremony</h3>
 				<hr />
-				<h4>08 June 2024</h4>
-				<h5>event time</h5>
+				<h4>June 08, 2024</h4>
+				<h4>Afternoon</h4>
+				<br />
 				<h5>
-					Address line 1<br />Address line2<br />
-					Address line 3
+					Marie d'Aix-en-Provence<br />Place de l'Hôtel de Ville<br />
 				</h5>
 			</div>
-		</section>
-		{{#if events.otherEvents}}
-			<section
-				id="other-events"
-				class="menu-target"
-				data-section-id="other events"
-			>
-				<h2>other events</h2>
-				{{#if events.rehearsal_dinner}}
-					<div class="event">
-						<h3>the night before</h3>
-						<hr />
-						<h4>08 June 2024</h4>
-						<h5>event time</h5>
-						<h5>
-							Address line 1<br />Address line2<br />
-							Address line 3
-						</h5>
-					</div>
-				{{/if}}
-				{{#if events.day_after}}
-					<div class="event">
-						<h3>the day after</h3>
-						<hr />
-						<h4>08 June 2024</h4>
-						<h5>event time</h5>
-						<h5>
-							Address line 1<br />Address line2<br />
-							Address line 3
-						</h5>
-					</div>
-				{{/if}}
-			</section>
-		{{/if}}
-		<section
-			id="travel-tips"
-			data-section-id="travel tips"
-			class="menu-target"
-		>
-			<h2>useful info</h2>
+			{{/contains}} {{#contains "reception" events }}
 			<div class="event">
-				<h3>where to fly</h3>
+				<h3>The Reception</h3>
 				<hr />
-				<p>
-					travel tips travel tips travel tips travel tips travel tips
-					travel tips
-				</p>
+				<h4>June 08, 2024</h4>
+				<h4>Evening</h4>
+				<br />
+				<h5>
+					1230 Chemin de Repentance<br />Aix-en-Provence
+				</h5>
 			</div>
-			<div class="event">
-				<h3>where to stay</h3>
-				<hr />
-				<p>
-					where to stay where to stay where to stay where to stay
-					where to stay where to stay
-				</p>
-			</div>
-		</section>
-		<div id="photo-cont" style="position: relative">
-			<section id="photo"></section>
-			<h1>Thank you</h1>
+			{{/contains}}
 		</div>
-		<section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg">
-			<h1>rsvp</h1>
-			<h4>please reply in a timely manner</h4>
+	</section>
+	{{#if other_events}}
+	<section id="other-events" class="menu-target" data-section-id="other events">
+		<img class="card-header" src="assets/images/please-join-us.png" />
+		{{#contains "welcome dinner" events }}
+		<div class="event">
+			<h3>welcome dinner</h3>
+			<hr />
+			<h4>June 07, 2024</h4>
+			<h4>Evening</h4>
+			<br />
+			<h5>More details to come</h5>
+		</div>
+		{{/contains}} {{#contains "pool party" events }}
+		<div class="event">
+			<h3>pool party</h3>
+			<hr />
+			<h4>June 09, 2024</h4>
+			<h4>Early afternoon</h4>
+			<br />
+			<h5>More details to come</h5>
+		</div>
+		{{/contains}}
+	</section>
+	{{/if}}
+	<section id="travel-tips" data-section-id="details" class="menu-target">
+		<img class="card-header" src="assets/images/details.png" />
+		<div class="event">
+			<h3>how to get here</h3>
+			<hr />
+			<h5>More details to come</h5>
+		</div>
+		<div class="event">
+			<h3>where to stay</h3>
+			<hr />
+			<h5>Here's a list of possible hotels. AirBnb also offers a wide variety of options in the area.</h5>
+			<br />
+			<h4>in town</h4>
+			<h5>(10-15 minutes from venue)</h5>
+			<br />
+			<h5><a href="https://www.hotel-aixenprovence-concorde.com" target="_blank">Hotel Le Concorde</a></h5>
+			<h5><a href="https://lesquatredauphins.fr/en/rooms.html" target="_blank">Hotel les Quatres Dauphins</a></h5>
+			<h5><a href="https://www.hotel-escaletto.com" target="_blank">Hotel Escaletto</a></h5>
+			<h5><a href="https://boutiquehotelcezanne.com/en/" target="_blank">Hotel Cézanne</a></h5>
+			<h5><a href="https://www.marriott.com/en-us/hotels/mrsbr-renaissance-aix-en-provence-hotel/overview/"
+					target="_blank">Hôtel
+					Renaissance Aix-en-Provence</a></h5>
+			<h5><a href="https://en.hotelpigonnet.com" target="_blank">Le Pigonnet</a></h5>
+			<h5><a href="https://all.accor.com/hotel/1169/index.en.shtml" target="_blank">Grand Hôtel Roi René </a>
+			</h5>
+			<h5><a href="https://villasaintange.com/en/" target="_blank">Villa des Anges</a></h5>
+			<h5><a href="https://www.villagallici.com/en/" target="_blank">Villa Gallici</a></h5>
+			<br />
+			<h4>out of town</h4>
+			<h5>(15-25 minutes from venue)</h5>
+			<br />
+			<h5><a href="https://www.hotelsaintevictoire.com/en/" target="_blank">Hôtel Sainte-Victoire</a></h5>
+			<h5><a href="https://www.masdentremont.com/en" target="_blank">Le Mas d’Entremont</a></h5>
+			<h5><a href="https://www.leslodgessaintevictoire.com/en/" target="_blank">Les Lodges Sainte Victoire</a>
+			</h5>
+			<h5><a href="https://chateaudelagaude.com/en" target="_blank">Chateau de la Gaude</a></h5>
+			<h5><a href="https://bastidedeganay.com" target="_blank">La Bastide de Ganay</a></h5>
+		</div>
+	</section>
+	<section id="photo-cont" style="position: relative">
+		<img class="card-header white" src="assets/images/thank-you.png" />
+		<h5>Formal invitation and RSVP to follow</h5>
+	</section>
+	<!-- <section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg"> -->
+	<!-- 	<img class="card-header white" src="assets/images/rsvp.png" /> -->
+	<!-- 	{{#if has_rsvp}} -->
+	<!-- 	<div id="success"> -->
+	<!-- 		<h4>Thanks for your response! <br />Please email us at nickbellewedding2024@gmail.com to make any changes</h4> -->
+	<!-- 	</div> -->
+	<!-- 	{{else}} -->
+	<!-- 	<form class="rsvp-card light-bg"> -->
+	<!-- 		{{#each invites}} -->
+	<!-- 		<div class="guest-form"> -->
+	<!-- 			<h4 data-guest-id="{{id}}">{{name}}</h4> -->
+	<!-- 			{{#each ../events}} -->
+	<!-- 			<h5 data-event-id={{this}}>{{this}}</h5> -->
+	<!-- 			<div class="select-wrap event"> -->
+	<!-- 				<select required name="response"> -->
+	<!-- 					<option value>Will you be joining us?</option> -->
+	<!-- 					<option value="1">Yes</option> -->
+	<!-- 					<option value="0">No</option> -->
+	<!-- 				</select> -->
+	<!-- 				<i class="fa-solid fa-chevron-down"></i> -->
+	<!-- 			</div> -->
+	<!-- 			{{/each}} -->
+	<!-- 			<textarea -->
+	<!-- 				name="{{name}}-dietary" -->
+	<!-- 				placeholder="Please list any dietary restrictions" -->
+	<!-- 			></textarea> -->
+	<!-- 		</div> -->
+	<!-- 		{{/each}} -->
+	<!-- 		<button id="submit" type="submit" value="Submit" name="submit"> -->
+	<!-- 			Submit -->
+	<!-- 		</button> -->
+	<!-- 		<div id="error-message" class="error empty"></div> -->
+	<!-- 	</form> -->
+	<!-- 	{{/if}} -->
+	<!-- </section> -->
+	<footer>Homemade with love by Nick</footer>
+</body>
+<script src="main.js"></script>
 
-			{{#if has_rsvp}}
-				<div id="success">
-					<h4>
-						Response recorded! We are looking forward to seeing you :)
-					</h4>
-				</div>
-			{{else}}
-				<form class="rsvp-card light-bg">
-					<div class="guest-form">
-						<h4 class="card-header" data-guest-id="1">Guest#1</h4>
-						<h5 data-event-id="wedding">The wedding</h5>
-						<div class="select-wrap event">
-							<select required name="Guest#2-response">
-								<option value>Will you be joining us?</option>
-								<option value="1">Yes</option>
-								<option value="0">No</option>
-							</select>
-							<i class="fa-solid fa-chevron-down"></i>
-						</div>
-						<h5 data-event-id="other event">Another event</h5>
-						<div class="select-wrap event">
-							<select required name="Guest#2-response">
-								<option value>Will you be joining us?</option>
-								<option value="1">Yes</option>
-								<option value="0">No</option>
-							</select>
-							<i class="fa-solid fa-chevron-down"></i>
-						</div>
-						<textarea
-							name="Guest#1-dietary"
-							placeholder="List any dietary restrictions"
-						></textarea>
-					</div>
-					<div class="guest-form">
-						<h4 class="card-header" data-guest-id="2">Guest#2</h4>
-						<h5 data-event-id="wedding">The wedding</h5>
-						<div class="select-wrap event">
-							<select required name="Guest#2-response">
-								<option value>Will you be joining us?</option>
-								<option value="1">Yes</option>
-								<option value="0">No</option>
-							</select>
-							<i class="fa-solid fa-chevron-down"></i>
-						</div>
-						<textarea
-							name="Guest#1-dietary"
-							placeholder="List any dietary restrictions"
-						></textarea>
-					</div>
-					<button
-						id="submit"
-						type="submit"
-						value="Submit"
-						name="submit"
-					>
-						Submit
-					</button>
-					<div id="error-message" class="error empty"></div>
-				</form>
-			{{/if}}
-		</section>
-		<section style="height: 85vh"></section>
-		<footer>Homemade with love by Nick</footer>
-	</body>
-	<script src="main.js"></script>
 </html>
