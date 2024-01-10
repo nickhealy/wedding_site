@@ -29,6 +29,7 @@ data "aws_iam_policy_document" "guest_list_r" {
       "dynamodb:ConditionCheckItem",
       "dynamodb:DescribeTable",
       "dynamodb:GetItem",
+      "dynamodb:Scan"
     ]
 
     resources = [

@@ -10,3 +10,6 @@ what do you name terraform resources?
 why do we need a new certificate in eu-west-2 to make this work? 
 how does the cloudfront cache get invalidated when dynamic content is uploaded?
 am i caching options/preflight request properly
+
+
+-- fix rsvp image z-index

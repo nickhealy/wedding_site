@@ -97,9 +97,8 @@ function getSessionIdFromCookie(cookieValue) {
     return sessionIdMatch ? sessionIdMatch[1] : null;
 }
 
-
 const getGuestData = async (id) => {
-    const guestData = await getGuestDataForId(id)
+    const guestData = await getGuestDataForId(id);
 
     // need function that looks for the inviter id of a person -- maybe add a GSI for that?
 
@@ -109,13 +108,9 @@ const getGuestData = async (id) => {
     }
 
     const templateData = {
-        invites: [guestData.name], // start off with main invitee as the first invite
+        invites: [{ name: guestData.name, id: guestData.id }], // start off with main invitee as the first invite
         events: [],
     };
-
-    if (guestData.rsvpd) {
-        templateData.has_rsvp = true;
-    }
 
     if (guestData.reception) {
         templateData.events.push("reception");
@@ -135,12 +130,20 @@ const getGuestData = async (id) => {
         templateData.events.push("pool party");
     }
 
+    if (
+        guestData.ceremony_rsvp !== undefined ||
+        guestData.ceremony_rsvp !== undefined ||
+        guestData.ceremony_rsvp !== undefined ||
+        guestData.ceremony_rsvp !== undefined
+    ) {
+        templateData.has_rsvp = true;
+    }
+
     // get the plus one data here
     // for (const plusOneId of guestData.plus_ones) {
     //     const {name} = await getGuestInfo
     //     templateData.invites.push(plusOneData.Name);
     // }
-    console.log({ guestData });
 
     return templateData;
 };

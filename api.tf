@@ -129,11 +129,26 @@ resource "aws_apigatewayv2_integration" "upload-csv" {
   payload_format_version = "2.0"
 }
 
+resource "aws_apigatewayv2_integration" "get-csv" {
+  api_id                 = aws_apigatewayv2_api.wedding_site.id
+  integration_uri        = aws_lambda_function.csv_get_lambda.invoke_arn
+  integration_type       = "AWS_PROXY"
+  integration_method     = "POST"
+  payload_format_version = "2.0"
+}
+
 resource "aws_apigatewayv2_route" "upload-csv" {
   api_id = aws_apigatewayv2_api.wedding_site.id
 
   route_key = "POST /guest-list"
   target    = "integrations/${aws_apigatewayv2_integration.upload-csv.id}"
+}
+
+resource "aws_apigatewayv2_route" "get-csv" {
+  api_id = aws_apigatewayv2_api.wedding_site.id
+
+  route_key = "GET /guest-list"
+  target    = "integrations/${aws_apigatewayv2_integration.get-csv.id}"
 }
 
 resource "aws_apigatewayv2_route" "rsvp" {
@@ -168,6 +183,15 @@ resource "aws_lambda_permission" "upload_csv_api_gw_permission" {
   statement_id  = "AllowRsvpExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.csv_upload_lambda.function_name
+
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.wedding_site.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "get_csv_api_gw_permission" {
+  statement_id  = "AllowRsvpExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.csv_get_lambda.function_name
 
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.wedding_site.execution_arn}/*/*"

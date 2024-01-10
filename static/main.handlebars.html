@@ -1,166 +1,265 @@
 <!doctype html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="main.index.css" />
+		<link
+			rel="icon"
+			type="image/x-icon"
+			href="assets/images/nickannabellePNG2.png"
+		/>
+		<script
+			src="https://kit.fontawesome.com/12f6611ba5.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Nick and Annabelle wedding site</title>
+	</head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;400&display=swap" rel="stylesheet" />
-	<link rel="stylesheet" href="main.index.css" />
-	<link rel="icon" type="image/x-icon" href="assets/images/nickannabellePNG2.png" />
-	<script src="https://kit.fontawesome.com/12f6611ba5.js" crossorigin="anonymous"></script>
-	<title>Nick and Annabelle wedding site</title>
-</head>
-
-<body>
-	<div id="hamburger">
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>
-	<header id="header">
-		<div />
-	</header>
-	<div id="menu" class="closed"></div>
-	<section class="main" id="hero" data-section-id="home">
-		<img src="assets/images/Nickannabelle3.png" />
-	</section>
-	<section id="main-events" class="dark-bg">
-		<div class="crop-container">
+	<body>
+		<div id="hamburger">
+			<div></div>
+			<div></div>
+			<div></div>
 		</div>
-		<div class="event-container menu-target" id="big-day-target" data-section-id="the big day">
-			<img class="white card-header" src="assets/images/the-big-day.png" />
+		<header id="header">
+			<div />
+		</header>
+		<div id="menu" class="closed"></div>
+		<section class="main" id="hero" data-section-id="home">
+			<img src="assets/images/Nickannabelle3.png" />
+		</section>
+		<section id="main-events" class="dark-bg">
+			<div class="crop-container"></div>
+			<div
+				class="event-container menu-target"
+				id="big-day-target"
+				data-section-id="the big day"
+			>
+				<img
+					class="white card-header"
+					src="assets/images/the-big-day.png"
+				/>
 
-			{{#contains "ceremony" events }}
-			<div class="event">
-				<h3>the ceremony</h3>
-				<hr />
-				<h4>June 08, 2024</h4>
-				<h4>Afternoon</h4>
-				<br />
-				<h5>
-					Marie d'Aix-en-Provence<br />Place de l'Hôtel de Ville<br />
-				</h5>
+				{{#contains "ceremony" events }}
+				<div class="event">
+					<h3>the ceremony</h3>
+					<hr />
+					<h4>June 08, 2024</h4>
+					<h4>3 PM</h4>
+					<br />
+					<h5>
+						Marie d'Aix-en-Provence<br />Place de l'Hôtel de
+						Ville<br />
+					</h5>
+				</div>
+				{{/contains}} {{#contains "reception" events }}
+				<div class="event">
+					<h3>The Reception</h3>
+					<hr />
+					<h4>June 08, 2024</h4>
+					<h4>7 PM</h4>
+					<br />
+					<h5>1230 Chemin de Repentance<br />Aix-en-Provence</h5>
+				</div>
+				{{/contains}}
 			</div>
-			{{/contains}} {{#contains "reception" events }}
+		</section>
+		{{#if other_events}}
+		<section
+			id="other-events"
+			class="menu-target"
+			data-section-id="other events"
+		>
+			<img class="card-header" src="assets/images/please-join-us.png" />
+			{{#contains "welcome dinner" events }}
 			<div class="event">
-				<h3>The Reception</h3>
+				<h3>welcome dinner</h3>
 				<hr />
-				<h4>June 08, 2024</h4>
-				<h4>Evening</h4>
+				<h4>June 07, 2024</h4>
+				<h4>7 PM</h4>
+				<br />
+				<h5>1120 Av Général De Gaulle<br />Bouc Bel Air</h5>
+			</div>
+			{{/contains}} {{#contains "pool party" events }}
+			<div class="event">
+				<h3>pool brunch</h3>
+				<hr />
+				<h4>June 09, 2024</h4>
+				<h4>11 AM</h4>
 				<br />
 				<h5>
-					1230 Chemin de Repentance<br />Aix-en-Provence
+					Stop by for a quick bite or come spend the afternoon by the
+					pool.
 				</h5>
+				<br />
+				<h5>1230 Chemin de Repentance<br />Aix-en-Provence</h5>
 			</div>
 			{{/contains}}
-		</div>
-	</section>
-	{{#if other_events}}
-	<section id="other-events" class="menu-target" data-section-id="other events">
-		<img class="card-header" src="assets/images/please-join-us.png" />
-		{{#contains "welcome dinner" events }}
-		<div class="event">
-			<h3>welcome dinner</h3>
-			<hr />
-			<h4>June 07, 2024</h4>
-			<h4>Evening</h4>
-			<br />
-			<h5>More details to come</h5>
-		</div>
-		{{/contains}} {{#contains "pool party" events }}
-		<div class="event">
-			<h3>pool party</h3>
-			<hr />
-			<h4>June 09, 2024</h4>
-			<h4>Early afternoon</h4>
-			<br />
-			<h5>More details to come</h5>
-		</div>
-		{{/contains}}
-	</section>
-	{{/if}}
-	<section id="travel-tips" data-section-id="details" class="menu-target">
-		<img class="card-header" src="assets/images/details.png" />
-		<div class="event">
-			<h3>how to get here</h3>
-			<hr />
-			<h5>More details to come</h5>
-		</div>
-		<div class="event">
-			<h3>where to stay</h3>
-			<hr />
-			<h5>Here's a list of possible hotels. AirBnb also offers a wide variety of options in the area.</h5>
-			<br />
-			<h4>in town</h4>
-			<h5>(10-15 minutes from venue)</h5>
-			<br />
-			<h5><a href="https://www.hotel-aixenprovence-concorde.com" target="_blank">Hotel Le Concorde</a></h5>
-			<h5><a href="https://lesquatredauphins.fr/en/rooms.html" target="_blank">Hotel les Quatres Dauphins</a></h5>
-			<h5><a href="https://www.hotel-escaletto.com" target="_blank">Hotel Escaletto</a></h5>
-			<h5><a href="https://boutiquehotelcezanne.com/en/" target="_blank">Hotel Cézanne</a></h5>
-			<h5><a href="https://www.marriott.com/en-us/hotels/mrsbr-renaissance-aix-en-provence-hotel/overview/"
-					target="_blank">Hôtel
-					Renaissance Aix-en-Provence</a></h5>
-			<h5><a href="https://en.hotelpigonnet.com" target="_blank">Le Pigonnet</a></h5>
-			<h5><a href="https://all.accor.com/hotel/1169/index.en.shtml" target="_blank">Grand Hôtel Roi René </a>
-			</h5>
-			<h5><a href="https://villasaintange.com/en/" target="_blank">Villa des Anges</a></h5>
-			<h5><a href="https://www.villagallici.com/en/" target="_blank">Villa Gallici</a></h5>
-			<br />
-			<h4>out of town</h4>
-			<h5>(15-25 minutes from venue)</h5>
-			<br />
-			<h5><a href="https://www.hotelsaintevictoire.com/en/" target="_blank">Hôtel Sainte-Victoire</a></h5>
-			<h5><a href="https://www.masdentremont.com/en" target="_blank">Le Mas d’Entremont</a></h5>
-			<h5><a href="https://www.leslodgessaintevictoire.com/en/" target="_blank">Les Lodges Sainte Victoire</a>
-			</h5>
-			<h5><a href="https://chateaudelagaude.com/en" target="_blank">Chateau de la Gaude</a></h5>
-			<h5><a href="https://bastidedeganay.com" target="_blank">La Bastide de Ganay</a></h5>
-		</div>
-	</section>
-	<section id="photo-cont" style="position: relative">
-		<img class="card-header white" src="assets/images/thank-you.png" />
-		<h5>Formal invitation and RSVP to follow</h5>
-	</section>
-	<!-- <section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg"> -->
-	<!-- 	<img class="card-header white" src="assets/images/rsvp.png" /> -->
-	<!-- 	{{#if has_rsvp}} -->
-	<!-- 	<div id="success"> -->
-	<!-- 		<h4>Thanks for your response! <br />Please email us at nickbellewedding2024@gmail.com to make any changes</h4> -->
-	<!-- 	</div> -->
-	<!-- 	{{else}} -->
-	<!-- 	<form class="rsvp-card light-bg"> -->
-	<!-- 		{{#each invites}} -->
-	<!-- 		<div class="guest-form"> -->
-	<!-- 			<h4 data-guest-id="{{id}}">{{name}}</h4> -->
-	<!-- 			{{#each ../events}} -->
-	<!-- 			<h5 data-event-id={{this}}>{{this}}</h5> -->
-	<!-- 			<div class="select-wrap event"> -->
-	<!-- 				<select required name="response"> -->
-	<!-- 					<option value>Will you be joining us?</option> -->
-	<!-- 					<option value="1">Yes</option> -->
-	<!-- 					<option value="0">No</option> -->
-	<!-- 				</select> -->
-	<!-- 				<i class="fa-solid fa-chevron-down"></i> -->
-	<!-- 			</div> -->
-	<!-- 			{{/each}} -->
-	<!-- 			<textarea -->
-	<!-- 				name="{{name}}-dietary" -->
-	<!-- 				placeholder="Please list any dietary restrictions" -->
-	<!-- 			></textarea> -->
-	<!-- 		</div> -->
-	<!-- 		{{/each}} -->
-	<!-- 		<button id="submit" type="submit" value="Submit" name="submit"> -->
-	<!-- 			Submit -->
-	<!-- 		</button> -->
-	<!-- 		<div id="error-message" class="error empty"></div> -->
-	<!-- 	</form> -->
-	<!-- 	{{/if}} -->
-	<!-- </section> -->
-	<footer>Homemade with love by Nick</footer>
-</body>
-<script src="main.js"></script>
-
+		</section>
+		{{/if}}
+		<section id="travel-tips" data-section-id="details" class="menu-target">
+			<img class="card-header" src="assets/images/details.png" />
+			<div class="event">
+				<h3>how to get here</h3>
+				<hr />
+				<h5>
+					The Marseille Airport is about a 30-40 minute drive away.
+					Alternatively, you can fly into Nice and then take a train
+					to the Aix-en-Provence city center. If you would like to go
+					through Paris, there is a TGV train from Paris to Aix.
+				</h5>
+			</div>
+			<div class="event">
+				<h3>where to stay</h3>
+				<hr />
+				<h5>
+					Here's a list of possible hotels. AirBnb also offers a wide
+					variety of options in the area.
+				</h5>
+				<br />
+				<h4>in town</h4>
+				<h5>(10-15 minutes from venue)</h5>
+				<br />
+				<h5>
+					<a
+						href="https://www.hotel-aixenprovence-concorde.com"
+						target="_blank"
+						>Hotel Le Concorde</a
+					>
+				</h5>
+				<h5>
+					<a
+						href="https://lesquatredauphins.fr/en/rooms.html"
+						target="_blank"
+						>Hotel les Quatres Dauphins</a
+					>
+				</h5>
+				<h5>
+					<a href="https://www.hotel-escaletto.com" target="_blank"
+						>Hotel Escaletto</a
+					>
+				</h5>
+				<h5>
+					<a
+						href="https://boutiquehotelcezanne.com/en/"
+						target="_blank"
+						>Hotel Cézanne</a
+					>
+				</h5>
+				<h5>
+					<a
+						href="https://www.marriott.com/en-us/hotels/mrsbr-renaissance-aix-en-provence-hotel/overview/"
+						target="_blank"
+						>Hôtel Renaissance Aix-en-Provence</a
+					>
+				</h5>
+				<h5>
+					<a href="https://en.hotelpigonnet.com" target="_blank"
+						>Le Pigonnet</a
+					>
+				</h5>
+				<h5>
+					<a
+						href="https://all.accor.com/hotel/1169/index.en.shtml"
+						target="_blank"
+						>Grand Hôtel Roi René
+					</a>
+				</h5>
+				<h5>
+					<a href="https://villasaintange.com/en/" target="_blank"
+						>Villa des Anges</a
+					>
+				</h5>
+				<h5>
+					<a href="https://www.villagallici.com/en/" target="_blank"
+						>Villa Gallici</a
+					>
+				</h5>
+				<br />
+				<h4>out of town</h4>
+				<h5>(15-25 minutes from venue)</h5>
+				<br />
+				<h5>
+					<a
+						href="https://www.hotelsaintevictoire.com/en/"
+						target="_blank"
+						>Hôtel Sainte-Victoire</a
+					>
+				</h5>
+				<h5>
+					<a href="https://www.masdentremont.com/en" target="_blank"
+						>Le Mas d’Entremont</a
+					>
+				</h5>
+				<h5>
+					<a
+						href="https://www.leslodgessaintevictoire.com/en/"
+						target="_blank"
+						>Les Lodges Sainte Victoire</a
+					>
+				</h5>
+				<h5>
+					<a href="https://chateaudelagaude.com/en" target="_blank"
+						>Chateau de la Gaude</a
+					>
+				</h5>
+				<h5>
+					<a href="https://bastidedeganay.com" target="_blank"
+						>La Bastide de Ganay</a
+					>
+				</h5>
+			</div>
+		</section>
+		<section id="photo-cont" style="position: relative">
+			<img class="card-header white" src="assets/images/thank-you.png" />
+			<h5>Formal invitation and RSVP to follow</h5>
+		</section>
+		<!-- <section id="rsvp" data-section-id="rsvp" class="menu-target dark-bg"> -->
+		<!-- 	<img class="card-header white" src="assets/images/rsvp.png" /> -->
+		<!-- 	{{#if has_rsvp}} -->
+		<!-- 	<div id="success"> -->
+		<!-- 		<h4> -->
+		<!-- 			Thanks for your response! <br />Please email us at -->
+		<!-- 			nickbellewedding2024@gmail.com to make any changes -->
+		<!-- 		</h4> -->
+		<!-- 	</div> -->
+		<!-- 	{{else}} -->
+		<!-- 	<form class="rsvp-card light-bg"> -->
+		<!-- 		{{#each invites}} -->
+		<!-- 		<div class="guest-form"> -->
+		<!-- 			<h4 data-guest-id="{{id}}">{{name}}</h4> -->
+		<!-- 			{{#each ../events}} -->
+		<!-- 			<h5 data-event-id="{{this}}">{{this}}</h5> -->
+		<!-- 			<div class="select-wrap event"> -->
+		<!-- 				<select required name="response"> -->
+		<!-- 					<option value>Will you be joining us?</option> -->
+		<!-- 					<option value="1">Yes</option> -->
+		<!-- 					<option value="0">No</option> -->
+		<!-- 				</select> -->
+		<!-- 				<i class="fa-solid fa-chevron-down"></i> -->
+		<!-- 			</div> -->
+		<!-- 			{{/each}} -->
+		<!-- 			<textarea -->
+		<!-- 				name="{{name}}-dietary" -->
+		<!-- 				placeholder="Please list any dietary restrictions" -->
+		<!-- 			></textarea> -->
+		<!-- 		</div> -->
+		<!-- 		{{/each}} -->
+		<!-- 		<button id="submit" type="submit" value="Submit" name="submit"> -->
+		<!-- 			Submit -->
+		<!-- 		</button> -->
+		<!-- 		<div id="error-message" class="error empty"></div> -->
+		<!-- 	</form> -->
+		<!-- 	{{/if}} -->
+		<!-- </section> -->
+		<footer>Homemade with love by Nick</footer>
+	</body>
+	<script src="main.js"></script>
 </html>

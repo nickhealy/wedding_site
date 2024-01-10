@@ -45,6 +45,7 @@ const parseCsv = (csvData) => {
             rowData[header] = convertBoolean(columns[j]);
         }
 
+        rowData.rsvpd = rowData.rsvpd || false
         data.push(rowData);
     }
 
@@ -77,6 +78,7 @@ const parseCsv = (csvData) => {
 // };
 
 module.exports = {
-    parseCsv
+    parseCsv,
+    headerMapping
 }
 
